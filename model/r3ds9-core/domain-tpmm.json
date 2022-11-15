@@ -1,0 +1,18 @@
+{
+	"name": "domain",
+	"properties": {
+		"folder-path": "./domain"
+	   ,"struct-name": "Domain"
+	}
+,"attributes": [
+	{ "name": "oId", "type": "object-id", "tags": [ "json", "-", "bson", "_id" ], "queryable": true }
+   ,{ "name": "code"                  , "type": "string", "queryable": true }
+   ,{ "name": "objType"               , "type": "string", "queryable": true }
+   ,{ "name": "name"                  , "type": "string"  }
+   ,{ "name": "description"           , "type": "string"  }
+   ,{ "name": "langs"                 , "type": "string"  }
+   ,{ "name": "apps", "type": "array" , "item": { "type": "ref-struct", "struct-ref" : { "struct-name": "App", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons" }}}
+   ,{ "name": "sysinfo", "type": "ref-struct", "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons" }}
+]
+}
+
