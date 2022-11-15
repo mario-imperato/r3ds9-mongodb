@@ -31,7 +31,7 @@ func FindByCode(collection *mongo.Collection, code string, mustFind bool, findOp
 				return &ent, false, err
 			}
 
-			log.Trace().Str("ndg", code).Msg(SemLogContext + " document not found but allowed")
+			log.Trace().Str("domain", code).Msg(SemLogContext + " document not found but allowed")
 			ent.Code = code
 			return &ent, false, nil
 		} else {

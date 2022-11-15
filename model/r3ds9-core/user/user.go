@@ -51,7 +51,7 @@ func GetFromCache(resolver CacheResolver, code string) (*User, bool) {
 	var err error
 	item, ok := userCache.Get(code)
 	if !ok {
-		log.Warn().Str("k", code).Str("domain", code).Msgf(SemLogContext + " site cache miss")
+		log.Warn().Str("k", code).Msgf(SemLogContext + " cache miss")
 		item, err = resolver.Retrieve(code)
 		if err != nil {
 			return nil, false

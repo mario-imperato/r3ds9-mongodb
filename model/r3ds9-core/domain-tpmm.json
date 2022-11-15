@@ -11,6 +11,10 @@
    ,{ "name": "name"                  , "type": "string"  }
    ,{ "name": "description"           , "type": "string"  }
    ,{ "name": "langs"                 , "type": "string"  }
+   ,{ "name": "members", "type": "array" , "item": { "type": "struct",  "struct-name": "DomainMember", "attributes": [
+        { "name": "code"                  , "type": "string" }
+       ,{ "name": "objType"               , "type": "string" }
+   ]}}
    ,{ "name": "apps", "type": "array" , "item": { "type": "ref-struct", "struct-ref" : { "struct-name": "App", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons" }}}
    ,{ "name": "sysinfo", "type": "ref-struct", "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons" }}
 ]
