@@ -1,7 +1,7 @@
 package site_test
 
 import (
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/site"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/site"
 	"testing"
 	"time"
 )

@@ -1,7 +1,7 @@
 package domain_test
 
 import (
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/domain"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/domain"
 	"testing"
 	"time"
 )

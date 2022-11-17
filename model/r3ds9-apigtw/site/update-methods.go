@@ -1,11 +1,11 @@
-package user
+package site
 
 import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -28,12 +28,13 @@ type UnsetOption func(uopt *UnsetOptions)
 type UnsetOptions struct {
 	DefaultMode UnsetMode
 	OId         UnsetMode
-	Nickname    UnsetMode
+	Code        UnsetMode
+	Domain      UnsetMode
 	ObjType     UnsetMode
-	Firstname   UnsetMode
-	Lastnamw    UnsetMode
-	Password    UnsetMode
-	Roles       UnsetMode
+	Name        UnsetMode
+	Description UnsetMode
+	Langs       UnsetMode
+	Apps        UnsetMode
 	Sysinfo     UnsetMode
 }
 
@@ -55,9 +56,14 @@ func WithOIdUnsetMode(m UnsetMode) UnsetOption {
 		uopt.OId = m
 	}
 }
-func WithNicknameUnsetMode(m UnsetMode) UnsetOption {
+func WithCodeUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Nickname = m
+		uopt.Code = m
+	}
+}
+func WithDomainUnsetMode(m UnsetMode) UnsetOption {
+	return func(uopt *UnsetOptions) {
+		uopt.Domain = m
 	}
 }
 func WithObjTypeUnsetMode(m UnsetMode) UnsetOption {
@@ -65,24 +71,24 @@ func WithObjTypeUnsetMode(m UnsetMode) UnsetOption {
 		uopt.ObjType = m
 	}
 }
-func WithFirstnameUnsetMode(m UnsetMode) UnsetOption {
+func WithNameUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Firstname = m
+		uopt.Name = m
 	}
 }
-func WithLastnamwUnsetMode(m UnsetMode) UnsetOption {
+func WithDescriptionUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Lastnamw = m
+		uopt.Description = m
 	}
 }
-func WithPasswordUnsetMode(m UnsetMode) UnsetOption {
+func WithLangsUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Password = m
+		uopt.Langs = m
 	}
 }
-func WithRolesUnsetMode(m UnsetMode) UnsetOption {
+func WithAppsUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Roles = m
+		uopt.Apps = m
 	}
 }
 func WithSysinfoUnsetMode(m UnsetMode) UnsetOption {
@@ -108,7 +114,7 @@ func GetUpdateDocumentFromOptions(opts ...UpdateOption) UpdateDocument {
 // Convenience method to create an Update Document from the values of the top fields of the object. The convenience is in the handling
 // the unset because if I pass an empty struct to the update it generates an empty object anyway in the db. Handling the unset eliminates
 // the issue and delete an existing value without creating an empty struct.
-func GetUpdateDocument(obj *User, opts ...UnsetOption) UpdateDocument {
+func GetUpdateDocument(obj *Site, opts ...UnsetOption) UpdateDocument {
 
 	uo := &UnsetOptions{DefaultMode: KeepCurrent}
 	for _, o := range opts {
@@ -116,15 +122,16 @@ func GetUpdateDocument(obj *User, opts ...UnsetOption) UpdateDocument {
 	}
 
 	ud := UpdateDocument{}
-	ud.setOrUnsetNickname(obj.Nickname, uo.ResolveUnsetMode(uo.Nickname))
+	ud.setOrUnsetCode(obj.Code, uo.ResolveUnsetMode(uo.Code))
+	ud.setOrUnsetDomain(obj.Domain, uo.ResolveUnsetMode(uo.Domain))
 	ud.setOrUnsetObjType(obj.ObjType, uo.ResolveUnsetMode(uo.ObjType))
-	ud.setOrUnsetFirstname(obj.Firstname, uo.ResolveUnsetMode(uo.Firstname))
-	ud.setOrUnsetLastnamw(obj.Lastnamw, uo.ResolveUnsetMode(uo.Lastnamw))
-	ud.setOrUnsetPassword(obj.Password, uo.ResolveUnsetMode(uo.Password))
-	// if len(obj.Roles) > 0 {
-	//   ud.SetRoles ( obj.Roles)
+	ud.setOrUnsetName(obj.Name, uo.ResolveUnsetMode(uo.Name))
+	ud.setOrUnsetDescription(obj.Description, uo.ResolveUnsetMode(uo.Description))
+	ud.setOrUnsetLangs(obj.Langs, uo.ResolveUnsetMode(uo.Langs))
+	// if len(obj.Apps) > 0 {
+	//   ud.SetApps ( obj.Apps)
 	// } else {
-	ud.setOrUnsetRoles(obj.Roles, uo.ResolveUnsetMode(uo.Roles))
+	ud.setOrUnsetApps(obj.Apps, uo.ResolveUnsetMode(uo.Apps))
 	// }
 	// if !obj.Sysinfo.IsZero() {
 	//   ud.SetSysinfo ( obj.Sysinfo)
@@ -170,47 +177,92 @@ func (ud *UpdateDocument) setOrUnsetOId(p primitive.ObjectID, um UnsetMode) {
 	}
 }
 
-//----- nickname - string -  [nickname]
+//----- code - string -  [code]
 
-// SetNickname No Remarks
-func (ud *UpdateDocument) SetNickname(p string) *UpdateDocument {
-	mName := fmt.Sprintf(NICKNAME)
+// SetCode No Remarks
+func (ud *UpdateDocument) SetCode(p string) *UpdateDocument {
+	mName := fmt.Sprintf(CODE)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetNickname No Remarks
-func (ud *UpdateDocument) UnsetNickname() *UpdateDocument {
-	mName := fmt.Sprintf(NICKNAME)
+// UnsetCode No Remarks
+func (ud *UpdateDocument) UnsetCode() *UpdateDocument {
+	mName := fmt.Sprintf(CODE)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetNickname No Remarks
-func (ud *UpdateDocument) setOrUnsetNickname(p string, um UnsetMode) {
+// setOrUnsetCode No Remarks
+func (ud *UpdateDocument) setOrUnsetCode(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetNickname(p)
+		ud.SetCode(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetNickname()
+			ud.UnsetCode()
 		case SetData2Default:
-			ud.UnsetNickname()
+			ud.UnsetCode()
 		}
 	}
 }
 
-func UpdateWithNickname(p string) UpdateOption {
+func UpdateWithCode(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetNickname(p)
+			ud.SetCode(p)
 		} else {
-			ud.UnsetNickname()
+			ud.UnsetCode()
+		}
+	}
+}
+
+//----- domain - string -  [domain]
+
+// SetDomain No Remarks
+func (ud *UpdateDocument) SetDomain(p string) *UpdateDocument {
+	mName := fmt.Sprintf(DOMAIN)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetDomain No Remarks
+func (ud *UpdateDocument) UnsetDomain() *UpdateDocument {
+	mName := fmt.Sprintf(DOMAIN)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetDomain No Remarks
+func (ud *UpdateDocument) setOrUnsetDomain(p string, um UnsetMode) {
+	if p != "" {
+		ud.SetDomain(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetDomain()
+		case SetData2Default:
+			ud.UnsetDomain()
+		}
+	}
+}
+
+func UpdateWithDomain(p string) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p != "" {
+			ud.SetDomain(p)
+		} else {
+			ud.UnsetDomain()
 		}
 	}
 }
@@ -260,218 +312,218 @@ func UpdateWithObjType(p string) UpdateOption {
 	}
 }
 
-//----- firstname - string -  [firstname]
+//----- name - string -  [name]
 
-// SetFirstname No Remarks
-func (ud *UpdateDocument) SetFirstname(p string) *UpdateDocument {
-	mName := fmt.Sprintf(FIRSTNAME)
+// SetName No Remarks
+func (ud *UpdateDocument) SetName(p string) *UpdateDocument {
+	mName := fmt.Sprintf(NAME)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetFirstname No Remarks
-func (ud *UpdateDocument) UnsetFirstname() *UpdateDocument {
-	mName := fmt.Sprintf(FIRSTNAME)
+// UnsetName No Remarks
+func (ud *UpdateDocument) UnsetName() *UpdateDocument {
+	mName := fmt.Sprintf(NAME)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetFirstname No Remarks
-func (ud *UpdateDocument) setOrUnsetFirstname(p string, um UnsetMode) {
+// setOrUnsetName No Remarks
+func (ud *UpdateDocument) setOrUnsetName(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetFirstname(p)
+		ud.SetName(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetFirstname()
+			ud.UnsetName()
 		case SetData2Default:
-			ud.UnsetFirstname()
+			ud.UnsetName()
 		}
 	}
 }
 
-func UpdateWithFirstname(p string) UpdateOption {
+func UpdateWithName(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetFirstname(p)
+			ud.SetName(p)
 		} else {
-			ud.UnsetFirstname()
+			ud.UnsetName()
 		}
 	}
 }
 
-//----- lastnamw - string -  [lastnamw]
+//----- description - string -  [description]
 
-// SetLastnamw No Remarks
-func (ud *UpdateDocument) SetLastnamw(p string) *UpdateDocument {
-	mName := fmt.Sprintf(LASTNAMW)
+// SetDescription No Remarks
+func (ud *UpdateDocument) SetDescription(p string) *UpdateDocument {
+	mName := fmt.Sprintf(DESCRIPTION)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetLastnamw No Remarks
-func (ud *UpdateDocument) UnsetLastnamw() *UpdateDocument {
-	mName := fmt.Sprintf(LASTNAMW)
+// UnsetDescription No Remarks
+func (ud *UpdateDocument) UnsetDescription() *UpdateDocument {
+	mName := fmt.Sprintf(DESCRIPTION)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetLastnamw No Remarks
-func (ud *UpdateDocument) setOrUnsetLastnamw(p string, um UnsetMode) {
+// setOrUnsetDescription No Remarks
+func (ud *UpdateDocument) setOrUnsetDescription(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetLastnamw(p)
+		ud.SetDescription(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetLastnamw()
+			ud.UnsetDescription()
 		case SetData2Default:
-			ud.UnsetLastnamw()
+			ud.UnsetDescription()
 		}
 	}
 }
 
-func UpdateWithLastnamw(p string) UpdateOption {
+func UpdateWithDescription(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetLastnamw(p)
+			ud.SetDescription(p)
 		} else {
-			ud.UnsetLastnamw()
+			ud.UnsetDescription()
 		}
 	}
 }
 
-//----- password - string -  [password]
+//----- langs - string -  [langs]
 
-// SetPassword No Remarks
-func (ud *UpdateDocument) SetPassword(p string) *UpdateDocument {
-	mName := fmt.Sprintf(PASSWORD)
+// SetLangs No Remarks
+func (ud *UpdateDocument) SetLangs(p string) *UpdateDocument {
+	mName := fmt.Sprintf(LANGS)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetPassword No Remarks
-func (ud *UpdateDocument) UnsetPassword() *UpdateDocument {
-	mName := fmt.Sprintf(PASSWORD)
+// UnsetLangs No Remarks
+func (ud *UpdateDocument) UnsetLangs() *UpdateDocument {
+	mName := fmt.Sprintf(LANGS)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetPassword No Remarks
-func (ud *UpdateDocument) setOrUnsetPassword(p string, um UnsetMode) {
+// setOrUnsetLangs No Remarks
+func (ud *UpdateDocument) setOrUnsetLangs(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetPassword(p)
+		ud.SetLangs(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetPassword()
+			ud.UnsetLangs()
 		case SetData2Default:
-			ud.UnsetPassword()
+			ud.UnsetLangs()
 		}
 	}
 }
 
-func UpdateWithPassword(p string) UpdateOption {
+func UpdateWithLangs(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetPassword(p)
+			ud.SetLangs(p)
 		} else {
-			ud.UnsetPassword()
+			ud.UnsetLangs()
 		}
 	}
 }
 
-// ----- roles - array -  [roles]
-// SetRoles No Remarks
-func (ud *UpdateDocument) SetRoles(p []commons.UserRole) *UpdateDocument {
-	mName := fmt.Sprintf(ROLES)
+// ----- apps - array -  [apps]
+// SetApps No Remarks
+func (ud *UpdateDocument) SetApps(p []commons.App) *UpdateDocument {
+	mName := fmt.Sprintf(APPS)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetRoles No Remarks
-func (ud *UpdateDocument) UnsetRoles() *UpdateDocument {
-	mName := fmt.Sprintf(ROLES)
+// UnsetApps No Remarks
+func (ud *UpdateDocument) UnsetApps() *UpdateDocument {
+	mName := fmt.Sprintf(APPS)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetRoles No Remarks - here2
-func (ud *UpdateDocument) setOrUnsetRoles(p []commons.UserRole, um UnsetMode) {
+// setOrUnsetApps No Remarks - here2
+func (ud *UpdateDocument) setOrUnsetApps(p []commons.App, um UnsetMode) {
 
 	//----- array\n
 
 	if len(p) > 0 {
-		ud.SetRoles(p)
+		ud.SetApps(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetRoles()
+			ud.UnsetApps()
 		case SetData2Default:
-			ud.UnsetRoles()
+			ud.UnsetApps()
 		}
 	}
 }
 
-func UpdateWithRoles(p []commons.UserRole) UpdateOption {
+func UpdateWithApps(p []commons.App) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if len(p) > 0 {
-			ud.SetRoles(p)
+			ud.SetApps(p)
 		} else {
-			ud.UnsetRoles()
+			ud.UnsetApps()
 		}
 	}
 }
 
-// ----- [] - ref-struct -  [roles.[]]
-// SetRolesI No Remarks
-func (ud *UpdateDocument) SetRolesI(ndxI int, p commons.UserRole) *UpdateDocument {
-	mName := fmt.Sprintf(ROLES_I, ndxI)
+// ----- [] - ref-struct -  [apps.[]]
+// SetAppsI No Remarks
+func (ud *UpdateDocument) SetAppsI(ndxI int, p commons.App) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetRolesI No Remarks
-func (ud *UpdateDocument) UnsetRolesI(ndxI int) *UpdateDocument {
-	mName := fmt.Sprintf(ROLES_I, ndxI)
+// UnsetAppsI No Remarks
+func (ud *UpdateDocument) UnsetAppsI(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetRolesI No Remarks
-func (ud *UpdateDocument) setOrUnsetRolesI(ndxI int, p commons.UserRole, um UnsetMode) {
+// setOrUnsetAppsI No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsI(ndxI int, p commons.App, um UnsetMode) {
 	if !p.IsZero() {
-		ud.SetRolesI(ndxI, p)
+		ud.SetAppsI(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetRolesI(ndxI)
+			ud.UnsetAppsI(ndxI)
 		case SetData2Default:
-			ud.UnsetRolesI(ndxI)
+			ud.UnsetAppsI(ndxI)
 		}
 	}
 }

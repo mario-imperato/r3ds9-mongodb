@@ -9,7 +9,7 @@
    ,{ "name": "nickname"                , "type": "string", "queryable": true }
    ,{ "name": "remoteaddr"              , "type": "string", "queryable": true }
    ,{ "name": "flags"                   , "type": "string"  }
-   ,{ "name": "sysinfo", "type": "ref-struct", "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons" }}
+   ,{ "name": "sysinfo", "type": "ref-struct", "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons" }}
 ]
 }
 

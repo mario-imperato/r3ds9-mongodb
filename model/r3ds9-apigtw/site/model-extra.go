@@ -1,6 +1,6 @@
 package site
 
-import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons"
+import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons"
 
 func (s Site) GetAppByObjTypeAndId(objType commons.AppObjType, appId string) (commons.App, bool) {
 	app := commons.App{Id: appId}

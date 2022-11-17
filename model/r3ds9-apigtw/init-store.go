@@ -1,10 +1,10 @@
-package r3ds9_core
+package r3ds9_apigtw
 
 import (
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/domain"
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/session"
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/site"
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/user"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/domain"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/session"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/site"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/user"
 	"time"
 )
 

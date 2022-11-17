@@ -1,7 +1,7 @@
 package user
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
-import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons"
+import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons"
 
 const (
 	OID       = "_id"

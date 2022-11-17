@@ -1,8 +1,8 @@
 package user_test
 
 import (
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons"
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/user"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/user"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
