@@ -13,10 +13,19 @@ const (
 	PurgeExpiredDuration = 10 * time.Minute
 )
 
-func InitStore() error {
-	domain.NewCache(ExpiryDuration, PurgeExpiredDuration)
-	site.NewCache(ExpiryDuration, PurgeExpiredDuration)
-	user.NewCache(ExpiryDuration, PurgeExpiredDuration)
-	session.NewCache(ExpiryDuration, PurgeExpiredDuration)
+func InitStore(expiryDuration time.Duration, purgeExpiryDuration time.Duration) error {
+
+	if expiryDuration == 0 {
+		expiryDuration = ExpiryDuration
+	}
+
+	if purgeExpiryDuration == 0 {
+		purgeExpiryDuration = PurgeExpiredDuration
+	}
+
+	domain.NewCache(expiryDuration, purgeExpiryDuration)
+	site.NewCache(expiryDuration, purgeExpiryDuration)
+	user.NewCache(expiryDuration, purgeExpiryDuration)
+	session.NewCache(expiryDuration, purgeExpiryDuration)
 	return nil
 }

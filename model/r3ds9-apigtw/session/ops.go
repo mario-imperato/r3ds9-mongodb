@@ -80,12 +80,13 @@ func Remove(ctx context.Context, aCollection *mongo.Collection, sid string, must
 	return int(r.DeletedCount), nil
 }
 
-func UpdateSession(ctx context.Context, aCollection *mongo.Collection, sid string, mustMatch bool, opts ...UpdateOption) (int, error) {
+func UpdateBySid(ctx context.Context, aCollection *mongo.Collection, sid string, mustMatch bool, opts ...UpdateOption) (int, error) {
 
 	const SemLogContext = "r3ds9-core/session/remove"
 	log.Trace().Str("sid", sid).Msg(SemLogContext)
 
 	ud := UpdateDocument{}
+	ud.SetSysinfoModifiedAtNow()
 	for _, o := range opts {
 		o(&ud)
 	}

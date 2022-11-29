@@ -20,8 +20,8 @@ func (f CacheResolverFunc) Retrieve(k string) (interface{}, error) {
 var domainCache *cache.Cache
 
 func NewCache(expDuration time.Duration, purgeInterval time.Duration) {
-	// Create a cache with a default expiration time of 5 minutes, and which
-	// purges expired items every 10 minutes
+	const semLogContext = "r3ds9-mongodb/domain/new-cache"
+	log.Info().Dur("expiry", expDuration).Dur("purge", purgeInterval).Msg(semLogContext)
 	domainCache = cache.New(expDuration, purgeInterval)
 }
 

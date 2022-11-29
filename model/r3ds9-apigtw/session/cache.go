@@ -20,8 +20,8 @@ func (f CacheResolverFunc) Retrieve(k string) (interface{}, error) {
 var sessionCache *cache.Cache
 
 func NewCache(expDuration time.Duration, purgeInterval time.Duration) {
-	// Create a cache with a default expiration time of 5 minutes, and which
-	// purges expired items every 10 minutes
+	const semLogContext = "r3ds9-mongodb/session/new-cache"
+	log.Info().Dur("expiry", expDuration).Dur("purge", purgeInterval).Msg(semLogContext)
 	sessionCache = cache.New(expDuration, purgeInterval)
 }
 
@@ -42,6 +42,10 @@ func NewCacheResolver(coll *mongo.Collection) CacheResolverFunc {
 
 		return ent, nil
 	}
+}
+
+func InvalidateSession(code string) {
+	sessionCache.Delete(code)
 }
 
 func GetFromCache(resolver CacheResolver, code string) (*Session, bool) {

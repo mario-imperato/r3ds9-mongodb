@@ -1,10 +1,10 @@
 const r3ds9DbName = "r3ds9"
-const r3ds9CollectionName = "domain"
+const r3ds9CollectionName = "apigtw_domain"
 
 let conn = new Mongo();
 let db = conn.getDB(r3ds9DbName);
 
-let c = db.domain
+let c = db[r3ds9CollectionName]
 if (!c)  {
     db.createCollection(r3ds9CollectionName)
 }
@@ -26,7 +26,7 @@ db[r3ds9CollectionName].insertOne(
                 ,"objType": "app-www"
                 ,"name": "Applicazione Home"
                 ,"description": "Applicazione Home"
-                ,"path": "www-regatta"
+                ,"path": "ng-hello-world/index.tmpl"
             }
         ],
         "members": [
@@ -54,7 +54,7 @@ db[r3ds9CollectionName].insertOne(
                 ,"objType": "app-www"
                 ,"name": "Applicazione Home"
                 ,"description": "Applicazione Home"
-                ,"path": "www-regatta"
+                ,"path": "ng-hello-world/index.tmpl"
             }
         ],
         "members": [

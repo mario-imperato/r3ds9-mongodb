@@ -1,5 +1,5 @@
 const r3ds9DbName = "r3ds9"
-const r3ds9CollectionName = "user"
+const r3ds9CollectionName = "apigtw_user"
 
 let conn = new Mongo();
 let db = conn.getDB(r3ds9DbName);
