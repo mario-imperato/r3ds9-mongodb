@@ -1,0 +1,28 @@
+{
+	"name": "commons",
+	"properties": {
+		"folder-path": "./commons"
+	   ,"struct-name": "Commons"
+	}
+,"attributes": [
+	{ "name": "sysinfo", "type": "struct", "struct-name": "SysInfo", "attributes": [
+	    { "name": "status",     "type": "string" }
+	   ,{ "name": "createdat",  "type": "date"   }
+	   ,{ "name": "modifiedat", "type": "date"   }
+   ]}
+  ,{ "name": "app", "type": "struct", "struct-name": "App", "attributes": [
+	 { "name": "id"                , "type": "string"}
+	,{ "name": "objType"           , "type": "string", "queryable": true }
+	,{ "name": "name"              , "type": "string"}
+	,{ "name": "description"       , "type": "string"}
+	,{ "name": "path"              , "type": "string"}
+	,{ "name": "roleRequired"      , "type": "bool"}
+	]}
+   ,{ "name": "roles", "type": "array" , "item": { "type": "struct", "struct-name": "UserRole", "attributes": [
+	 { "name": "domain"            , "type": "string"}
+	,{ "name": "site"              , "type": "string"}
+	,{ "name": "apps"              , "type": "string"}
+	]}}
+]
+}
+
