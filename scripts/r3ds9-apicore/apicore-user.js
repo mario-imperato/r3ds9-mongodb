@@ -17,7 +17,7 @@ c.insertOne(
     {
         "nickname" : "root",
         "objType"  : "root-user",
-        "password" : "pwd",
+        "password" : "8a3308114f80796bb4b6d407e605752b167c6b75",
         "firstname": "G",
         "lastname" : "Root",
         "roles": [

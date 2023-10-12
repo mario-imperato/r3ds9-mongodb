@@ -31,7 +31,8 @@ type UnsetOptions struct {
 	Nickname    UnsetMode
 	ObjType     UnsetMode
 	Firstname   UnsetMode
-	Lastnamw    UnsetMode
+	Lastname    UnsetMode
+	Email       UnsetMode
 	Password    UnsetMode
 	Roles       UnsetMode
 	Sysinfo     UnsetMode
@@ -70,9 +71,14 @@ func WithFirstnameUnsetMode(m UnsetMode) UnsetOption {
 		uopt.Firstname = m
 	}
 }
-func WithLastnamwUnsetMode(m UnsetMode) UnsetOption {
+func WithLastnameUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Lastnamw = m
+		uopt.Lastname = m
+	}
+}
+func WithEmailUnsetMode(m UnsetMode) UnsetOption {
+	return func(uopt *UnsetOptions) {
+		uopt.Email = m
 	}
 }
 func WithPasswordUnsetMode(m UnsetMode) UnsetOption {
@@ -119,7 +125,8 @@ func GetUpdateDocument(obj *User, opts ...UnsetOption) UpdateDocument {
 	ud.setOrUnsetNickname(obj.Nickname, uo.ResolveUnsetMode(uo.Nickname))
 	ud.setOrUnsetObjType(obj.ObjType, uo.ResolveUnsetMode(uo.ObjType))
 	ud.setOrUnsetFirstname(obj.Firstname, uo.ResolveUnsetMode(uo.Firstname))
-	ud.setOrUnsetLastnamw(obj.Lastnamw, uo.ResolveUnsetMode(uo.Lastnamw))
+	ud.setOrUnsetLastname(obj.Lastname, uo.ResolveUnsetMode(uo.Lastname))
+	ud.setOrUnsetEmail(obj.Email, uo.ResolveUnsetMode(uo.Email))
 	ud.setOrUnsetPassword(obj.Password, uo.ResolveUnsetMode(uo.Password))
 	// if len(obj.Roles) > 0 {
 	//   ud.SetRoles ( obj.Roles)
@@ -305,47 +312,92 @@ func UpdateWithFirstname(p string) UpdateOption {
 	}
 }
 
-//----- lastnamw - string -  [lastnamw]
+//----- lastname - string -  [lastname]
 
-// SetLastnamw No Remarks
-func (ud *UpdateDocument) SetLastnamw(p string) *UpdateDocument {
-	mName := fmt.Sprintf(LASTNAMW)
+// SetLastname No Remarks
+func (ud *UpdateDocument) SetLastname(p string) *UpdateDocument {
+	mName := fmt.Sprintf(LASTNAME)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetLastnamw No Remarks
-func (ud *UpdateDocument) UnsetLastnamw() *UpdateDocument {
-	mName := fmt.Sprintf(LASTNAMW)
+// UnsetLastname No Remarks
+func (ud *UpdateDocument) UnsetLastname() *UpdateDocument {
+	mName := fmt.Sprintf(LASTNAME)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetLastnamw No Remarks
-func (ud *UpdateDocument) setOrUnsetLastnamw(p string, um UnsetMode) {
+// setOrUnsetLastname No Remarks
+func (ud *UpdateDocument) setOrUnsetLastname(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetLastnamw(p)
+		ud.SetLastname(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetLastnamw()
+			ud.UnsetLastname()
 		case SetData2Default:
-			ud.UnsetLastnamw()
+			ud.UnsetLastname()
 		}
 	}
 }
 
-func UpdateWithLastnamw(p string) UpdateOption {
+func UpdateWithLastname(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetLastnamw(p)
+			ud.SetLastname(p)
 		} else {
-			ud.UnsetLastnamw()
+			ud.UnsetLastname()
+		}
+	}
+}
+
+//----- email - string -  [email]
+
+// SetEmail No Remarks
+func (ud *UpdateDocument) SetEmail(p string) *UpdateDocument {
+	mName := fmt.Sprintf(EMAIL)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetEmail No Remarks
+func (ud *UpdateDocument) UnsetEmail() *UpdateDocument {
+	mName := fmt.Sprintf(EMAIL)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetEmail No Remarks
+func (ud *UpdateDocument) setOrUnsetEmail(p string, um UnsetMode) {
+	if p != "" {
+		ud.SetEmail(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetEmail()
+		case SetData2Default:
+			ud.UnsetEmail()
+		}
+	}
+}
+
+func UpdateWithEmail(p string) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p != "" {
+			ud.SetEmail(p)
+		} else {
+			ud.UnsetEmail()
 		}
 	}
 }

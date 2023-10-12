@@ -51,7 +51,15 @@
 	      }
 	    },
 	    {
-	      "name": "lastnamw",
+	      "name": "lastname",
+	      "type": "string",
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
+	      "name": "email",
 	      "type": "string",
 	      "struct-ref": {
 	        "Package": "",

@@ -1,0 +1,27 @@
+{
+	"name": "kv",
+	"properties": {
+		"folder-path": "./keyvaluepackage"
+	   ,"struct-name": "KeyValuePackage"
+	}
+,"attributes": [
+	{ "name": "oId", "type": "object-id", "tags": [ "json", "-", "bson", "_id" ], "queryable": true }
+   ,{ "name": "domain"                 , "type": "string", "queryable": true }
+   ,{ "name": "site"                   , "type": "string", "queryable": true }
+   ,{ "name": "objType"                , "type": "string", "queryable": true }
+   ,{ "name": "category"               , "type": "string", "queryable": true }
+   ,{ "name": "issystem"               , "type": "bool"  }
+   ,{ "name": "description"            , "type": "string"  }
+   ,{ "name": "inherit"                , "type": "bool"  }
+   ,{ "name": "properties", "type": "array",
+         "item": { "type": "struct", "struct-name": "KeyValue", "attributes": [
+           { "name": "key"             , "type": "string"}
+          ,{ "name": "value"           , "type": "string"}
+         ]}
+    }
+   ,{ "name": "sysinfo", "type": "ref-struct",
+         "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons" }
+    }
+]
+}
+

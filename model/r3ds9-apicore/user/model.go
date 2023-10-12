@@ -8,7 +8,8 @@ const (
 	NICKNAME  = "nickname"
 	OBJTYPE   = "objType"
 	FIRSTNAME = "firstname"
-	LASTNAMW  = "lastnamw"
+	LASTNAME  = "lastname"
+	EMAIL     = "email"
 	PASSWORD  = "password"
 	ROLES     = "roles"
 	ROLES_I   = "roles.%d"
@@ -20,7 +21,8 @@ type User struct {
 	Nickname  string             `json:"nickname,omitempty" bson:"nickname,omitempty"`
 	ObjType   string             `json:"objType,omitempty" bson:"objType,omitempty"`
 	Firstname string             `json:"firstname,omitempty" bson:"firstname,omitempty"`
-	Lastnamw  string             `json:"lastnamw,omitempty" bson:"lastnamw,omitempty"`
+	Lastname  string             `json:"lastname,omitempty" bson:"lastname,omitempty"`
+	Email     string             `json:"email,omitempty" bson:"email,omitempty"`
 	Password  string             `json:"password,omitempty" bson:"password,omitempty"`
 	Roles     []commons.UserRole `json:"roles,omitempty" bson:"roles,omitempty"`
 	Sysinfo   commons.SysInfo    `json:"sysinfo,omitempty" bson:"sysinfo,omitempty"`
@@ -40,7 +42,10 @@ func (s User) IsZero() bool {
 	   if s.Firstname == "" {
 	       return false
 	   }
-	   if s.Lastnamw == "" {
+	   if s.Lastname == "" {
+	       return false
+	   }
+	   if s.Email == "" {
 	       return false
 	   }
 	   if s.Password == "" {
@@ -55,5 +60,5 @@ func (s User) IsZero() bool {
 	       return true
 	*/
 
-	return s.OId == primitive.NilObjectID && s.Nickname == "" && s.ObjType == "" && s.Firstname == "" && s.Lastnamw == "" && s.Password == "" && len(s.Roles) == 0 && s.Sysinfo.IsZero()
+	return s.OId == primitive.NilObjectID && s.Nickname == "" && s.ObjType == "" && s.Firstname == "" && s.Lastname == "" && s.Email == "" && s.Password == "" && len(s.Roles) == 0 && s.Sysinfo.IsZero()
 }

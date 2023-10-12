@@ -32,6 +32,7 @@ type UnsetOptions struct {
 	ObjType     UnsetMode
 	Firstname   UnsetMode
 	Lastnamw    UnsetMode
+	Email       UnsetMode
 	Password    UnsetMode
 	Roles       UnsetMode
 	Sysinfo     UnsetMode
@@ -73,6 +74,11 @@ func WithFirstnameUnsetMode(m UnsetMode) UnsetOption {
 func WithLastnamwUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
 		uopt.Lastnamw = m
+	}
+}
+func WithEmailUnsetMode(m UnsetMode) UnsetOption {
+	return func(uopt *UnsetOptions) {
+		uopt.Email = m
 	}
 }
 func WithPasswordUnsetMode(m UnsetMode) UnsetOption {
@@ -120,6 +126,7 @@ func GetUpdateDocument(obj *User, opts ...UnsetOption) UpdateDocument {
 	ud.setOrUnsetObjType(obj.ObjType, uo.ResolveUnsetMode(uo.ObjType))
 	ud.setOrUnsetFirstname(obj.Firstname, uo.ResolveUnsetMode(uo.Firstname))
 	ud.setOrUnsetLastnamw(obj.Lastnamw, uo.ResolveUnsetMode(uo.Lastnamw))
+	ud.setOrUnsetEmail(obj.Email, uo.ResolveUnsetMode(uo.Email))
 	ud.setOrUnsetPassword(obj.Password, uo.ResolveUnsetMode(uo.Password))
 	// if len(obj.Roles) > 0 {
 	//   ud.SetRoles ( obj.Roles)
@@ -346,6 +353,51 @@ func UpdateWithLastnamw(p string) UpdateOption {
 			ud.SetLastnamw(p)
 		} else {
 			ud.UnsetLastnamw()
+		}
+	}
+}
+
+//----- email - string -  [email]
+
+// SetEmail No Remarks
+func (ud *UpdateDocument) SetEmail(p string) *UpdateDocument {
+	mName := fmt.Sprintf(EMAIL)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetEmail No Remarks
+func (ud *UpdateDocument) UnsetEmail() *UpdateDocument {
+	mName := fmt.Sprintf(EMAIL)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetEmail No Remarks
+func (ud *UpdateDocument) setOrUnsetEmail(p string, um UnsetMode) {
+	if p != "" {
+		ud.SetEmail(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetEmail()
+		case SetData2Default:
+			ud.UnsetEmail()
+		}
+	}
+}
+
+func UpdateWithEmail(p string) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p != "" {
+			ud.SetEmail(p)
+		} else {
+			ud.UnsetEmail()
 		}
 	}
 }

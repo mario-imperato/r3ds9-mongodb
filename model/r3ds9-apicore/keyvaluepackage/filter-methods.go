@@ -1,4 +1,4 @@
-package user
+package keyvaluepackage
 
 import (
 	"fmt"
@@ -41,51 +41,76 @@ func (ca *Criteria) AndOIdIn(p []primitive.ObjectID) *Criteria {
 	return ca
 }
 
-//----- nickname of type string
-//----- nickname - string -  [nickname]
+//----- domain of type string
+//----- domain - string -  [domain]
 
-// AndNicknameEqTo No Remarks
-func (ca *Criteria) AndNicknameEqTo(p string) *Criteria {
+// AndDomainEqTo No Remarks
+func (ca *Criteria) AndDomainEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(NICKNAME)
+	mName := fmt.Sprintf(DOMAIN)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-// AndNicknameIsNullOrUnset No Remarks
-func (ca *Criteria) AndNicknameIsNullOrUnset() *Criteria {
+// AndDomainIsNullOrUnset No Remarks
+func (ca *Criteria) AndDomainIsNullOrUnset() *Criteria {
 
-	mName := fmt.Sprintf(NICKNAME)
+	mName := fmt.Sprintf(DOMAIN)
 	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndNicknameIn(p []string) *Criteria {
+func (ca *Criteria) AndDomainIn(p []string) *Criteria {
 
 	if len(p) == 0 {
 		return ca
 	}
 
-	mName := fmt.Sprintf(NICKNAME)
+	mName := fmt.Sprintf(DOMAIN)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndEmailEqTo(p string) *Criteria {
+//----- site of type string
+//----- site - string -  [site]
+
+// AndSiteEqTo No Remarks
+func (ca *Criteria) AndSiteEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(EMAIL)
+	mName := fmt.Sprintf(SITE)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+// AndSiteIsNullOrUnset No Remarks
+func (ca *Criteria) AndSiteIsNullOrUnset() *Criteria {
+
+	mName := fmt.Sprintf(SITE)
+	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+func (ca *Criteria) AndSiteIn(p []string) *Criteria {
+
+	if len(p) == 0 {
+		return ca
+	}
+
+	mName := fmt.Sprintf(SITE)
+	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca
 }
@@ -122,6 +147,43 @@ func (ca *Criteria) AndObjTypeIn(p []string) *Criteria {
 	}
 
 	mName := fmt.Sprintf(OBJTYPE)
+	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+//----- category of type string
+//----- category - string -  [category]
+
+// AndCategoryEqTo No Remarks
+func (ca *Criteria) AndCategoryEqTo(p string) *Criteria {
+
+	if p == "" {
+		return ca
+	}
+
+	mName := fmt.Sprintf(CATEGORY)
+	c := func() bson.E { return bson.E{Key: mName, Value: p} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+// AndCategoryIsNullOrUnset No Remarks
+func (ca *Criteria) AndCategoryIsNullOrUnset() *Criteria {
+
+	mName := fmt.Sprintf(CATEGORY)
+	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+func (ca *Criteria) AndCategoryIn(p []string) *Criteria {
+
+	if len(p) == 0 {
+		return ca
+	}
+
+	mName := fmt.Sprintf(CATEGORY)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca

@@ -1,12 +1,12 @@
-### Schema user
+### Schema kv
 
 #### Collection schema definition.
 
     {
-	  "name": "user",
+	  "name": "kv",
 	  "properties": {
-	    "folder-path": "./user",
-	    "struct-name": "User"
+	    "folder-path": "./keyvaluepackage",
+	    "struct-name": "KeyValuePackage"
 	  },
 	  "attributes": [
 	    {
@@ -25,7 +25,16 @@
 	      }
 	    },
 	    {
-	      "name": "nickname",
+	      "name": "domain",
+	      "type": "string",
+	      "queryable": true,
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
+	      "name": "site",
 	      "type": "string",
 	      "queryable": true,
 	      "struct-ref": {
@@ -43,7 +52,24 @@
 	      }
 	    },
 	    {
-	      "name": "firstname",
+	      "name": "category",
+	      "type": "string",
+	      "queryable": true,
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
+	      "name": "issystem",
+	      "type": "bool",
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
+	      "name": "description",
 	      "type": "string",
 	      "struct-ref": {
 	        "Package": "",
@@ -51,39 +77,40 @@
 	      }
 	    },
 	    {
-	      "name": "lastnamw",
-	      "type": "string",
+	      "name": "inherit",
+	      "type": "bool",
 	      "struct-ref": {
 	        "Package": "",
 	        "Item": null
 	      }
 	    },
 	    {
-	      "name": "email",
-	      "type": "string",
-	      "struct-ref": {
-	        "Package": "",
-	        "Item": null
-	      }
-	    },
-	    {
-	      "name": "password",
-	      "type": "string",
-	      "struct-ref": {
-	        "Package": "",
-	        "Item": null
-	      }
-	    },
-	    {
-	      "name": "roles",
+	      "name": "properties",
 	      "type": "array",
 	      "item": {
 	        "name": "[]",
-	        "type": "ref-struct",
+	        "struct-name": "KeyValue",
+	        "type": "struct",
+	        "attributes": [
+	          {
+	            "name": "key",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "value",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          }
+	        ],
 	        "struct-ref": {
-	          "struct-name": "UserRole",
-	          "is-external": true,
-	          "Package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons",
+	          "Package": "",
 	          "Item": null
 	        }
 	      },
