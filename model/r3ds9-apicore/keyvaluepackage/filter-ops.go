@@ -4,22 +4,13 @@ import (
 	"context"
 	"fmt"
 	"github.com/mario-imperato/r3ds9-apicommon/definitions"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func FindByDomainSiteName(c *mongo.Collection, domain, site, pkgName string) (KeyValuePackage, bool, error) {
-	f := Filter{}
-	criteria := f.Or().AndNameEqTo(pkgName)
-
-	if domain == definitions.RootDomain {
-		criteria.AndScopeEqTo(definitions.RootDomain)
-	} else {
-		if site == definitions.SiteWildCard {
-			criteria.AndScopeIn([]string{definitions.RootDomain, domain})
-		} else {
-			criteria.AndScopeIn([]string{definitions.RootDomain, domain, fmt.Sprintf("%s/%s", domain, site)})
-		}
-	}
+	f := filterByDomainSiteNameCategories(domain, site, pkgName, nil)
 
 	kvp := KeyValuePackage{}
 
@@ -58,4 +49,92 @@ func FindByDomainSiteName(c *mongo.Collection, domain, site, pkgName string) (Ke
 	}
 
 	return kvp, !kvp.IsZero(), nil
+}
+
+func filterByDomainSiteNameCategories(domain, site, pkgName string, categories []string) Filter {
+	f := Filter{}
+	criteria := f.Or().AndNameEqTo(pkgName).AndCategoryIn(categories)
+
+	if domain == definitions.RootDomain {
+		criteria.AndScopeEqTo(definitions.RootDomain)
+	} else {
+		if site == definitions.SiteWildCard {
+			criteria.AndScopeIn([]string{
+				definitions.RootDomain,
+				fmt.Sprintf("%s/%s", definitions.RootDomain, domain)})
+		} else {
+			criteria.AndScopeIn([]string{
+				definitions.RootDomain,
+				fmt.Sprintf("%s/%s", definitions.RootDomain, domain),
+				fmt.Sprintf("%s/%s/%s", definitions.RootDomain, domain, site),
+			})
+		}
+	}
+
+	return f
+}
+
+func FindByDomainSiteCategoryList(c *mongo.Collection, domain, site string, categories []string) ([]KeyValuePackage, error) {
+	reqScopeType, _ := ScopeTypeAndPathFromDomainSite(domain, site)
+
+	f := filterByDomainSiteNameCategories(domain, site, "", categories)
+
+	findOptions := options.Find()
+	findOptions.SetSort(bson.D{{NAME, -1}})
+	crs, err := c.Find(context.TODO(), f.Build(), findOptions)
+	if err != nil {
+		if err != mongo.ErrNoDocuments {
+			return nil, err
+		}
+
+		return nil, nil
+	}
+
+	var res []KeyValuePackage
+	var kvp KeyValuePackage
+	for crs.Next(context.TODO()) {
+		var kvp1 KeyValuePackage
+		if err = crs.Decode(&kvp1); err != nil {
+			return res, err
+		}
+
+		if kvp1.Name != kvp.Name {
+			if !kvp.IsZero() {
+				kvpScopeType, _, _ := kvp.ScopeType()
+				if reqScopeType != kvpScopeType {
+					kvp.Inherited = true
+				}
+				res = append(res, kvp)
+			}
+			kvp = kvp1
+		} else {
+			if ok, err := kvp1.IsMoreSpecificThan(&kvp); ok {
+				kvp = kvp1
+			} else if err != nil {
+				return res, err
+			}
+		}
+	}
+
+	if !kvp.IsZero() {
+		kvpScopeType, _, _ := kvp.ScopeType()
+		if reqScopeType != kvpScopeType {
+			kvp.Inherited = true
+		}
+		res = append(res, kvp)
+	}
+
+	if err = crs.Err(); err != nil {
+		return res, err
+	}
+
+	if !kvp.IsZero() {
+		scopeType, _ := ScopeTypeAndPathFromDomainSite(domain, site)
+		kvpScopeType, _, _ := kvp.ScopeType()
+		if scopeType != kvpScopeType {
+			kvp.Inherited = true
+		}
+	}
+
+	return res, nil
 }

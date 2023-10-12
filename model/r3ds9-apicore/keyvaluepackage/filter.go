@@ -1,7 +1,9 @@
 package keyvaluepackage
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/rs/zerolog/log"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 )
@@ -47,6 +49,8 @@ var emptyFilter = bson.D{}
 
 func (f *Filter) Build() bson.D {
 
+	const semLogContext = "keyvaluepackage-filter::build"
+
 	if len(f.listOfCriteria) == 0 {
 		return emptyFilter
 	}
@@ -61,6 +65,9 @@ func (f *Filter) Build() bson.D {
 	}
 
 	if len(docA) == 1 {
+		doc := docA[0].(bson.D)
+		b, _ := json.Marshal(doc)
+		log.Debug().Str("filter", string(b)).Msg(semLogContext)
 		return docA[0].(bson.D)
 	}
 
