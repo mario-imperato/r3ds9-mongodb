@@ -6,13 +6,13 @@
 	}
 ,"attributes": [
 	{ "name": "oId", "type": "object-id", "tags": [ "json", "-", "bson", "_id" ], "queryable": true }
-   ,{ "name": "domain"                 , "type": "string", "queryable": true }
-   ,{ "name": "site"                   , "type": "string", "queryable": true }
+   ,{ "name": "name"                   , "type": "string", "queryable": true }
+   ,{ "name": "scope"                  , "type": "string", "queryable": true }
    ,{ "name": "objType"                , "type": "string", "queryable": true }
    ,{ "name": "category"               , "type": "string", "queryable": true }
    ,{ "name": "issystem"               , "type": "bool"  }
    ,{ "name": "description"            , "type": "string"  }
-   ,{ "name": "inherit"                , "type": "bool"  }
+   ,{ "name": "inherited"              , "type": "bool"  }
    ,{ "name": "properties", "type": "array",
          "item": { "type": "struct", "struct-name": "KeyValue", "attributes": [
            { "name": "key"             , "type": "string"}

@@ -5,13 +5,13 @@ import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons"
 
 const (
 	OID                = "_id"
-	DOMAIN             = "domain"
-	SITE               = "site"
+	NAME               = "name"
+	SCOPE              = "scope"
 	OBJTYPE            = "objType"
 	CATEGORY           = "category"
 	ISSYSTEM           = "issystem"
 	DESCRIPTION        = "description"
-	INHERIT            = "inherit"
+	INHERITED          = "inherited"
 	PROPERTIES         = "properties"
 	PROPERTIES_I       = "properties.%d"
 	PROPERTIES_I_KEY   = "properties.%d.key"
@@ -23,13 +23,13 @@ const (
 
 type KeyValuePackage struct {
 	OId         primitive.ObjectID `json:"-" bson:"_id,omitempty"`
-	Domain      string             `json:"domain,omitempty" bson:"domain,omitempty"`
-	Site        string             `json:"site,omitempty" bson:"site,omitempty"`
+	Name        string             `json:"name,omitempty" bson:"name,omitempty"`
+	Scope       string             `json:"scope,omitempty" bson:"scope,omitempty"`
 	ObjType     string             `json:"objType,omitempty" bson:"objType,omitempty"`
 	Category    string             `json:"category,omitempty" bson:"category,omitempty"`
 	Issystem    bool               `json:"issystem,omitempty" bson:"issystem,omitempty"`
 	Description string             `json:"description,omitempty" bson:"description,omitempty"`
-	Inherit     bool               `json:"inherit,omitempty" bson:"inherit,omitempty"`
+	Inherited   bool               `json:"inherited,omitempty" bson:"inherited,omitempty"`
 	Properties  []KeyValue         `json:"properties,omitempty" bson:"properties,omitempty"`
 	Sysinfo     commons.SysInfo    `json:"sysinfo,omitempty" bson:"sysinfo,omitempty"`
 }
@@ -39,10 +39,10 @@ func (s KeyValuePackage) IsZero() bool {
 	   if s.OId == primitive.NilObjectID {
 	       return false
 	   }
-	   if s.Domain == "" {
+	   if s.Name == "" {
 	       return false
 	   }
-	   if s.Site == "" {
+	   if s.Scope == "" {
 	       return false
 	   }
 	   if s.ObjType == "" {
@@ -57,7 +57,7 @@ func (s KeyValuePackage) IsZero() bool {
 	   if s.Description == "" {
 	       return false
 	   }
-	   if !s.Inherit {
+	   if !s.Inherited {
 	       return false
 	   }
 	   if len(s.Properties) == 0 {
@@ -69,7 +69,7 @@ func (s KeyValuePackage) IsZero() bool {
 	       return true
 	*/
 
-	return s.OId == primitive.NilObjectID && s.Domain == "" && s.Site == "" && s.ObjType == "" && s.Category == "" && !s.Issystem && s.Description == "" && !s.Inherit && len(s.Properties) == 0 && s.Sysinfo.IsZero()
+	return s.OId == primitive.NilObjectID && s.Name == "" && s.Scope == "" && s.ObjType == "" && s.Category == "" && !s.Issystem && s.Description == "" && !s.Inherited && len(s.Properties) == 0 && s.Sysinfo.IsZero()
 }
 
 type KeyValue struct {

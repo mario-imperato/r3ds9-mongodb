@@ -25,7 +25,7 @@
 	      }
 	    },
 	    {
-	      "name": "domain",
+	      "name": "name",
 	      "type": "string",
 	      "queryable": true,
 	      "struct-ref": {
@@ -34,7 +34,7 @@
 	      }
 	    },
 	    {
-	      "name": "site",
+	      "name": "scope",
 	      "type": "string",
 	      "queryable": true,
 	      "struct-ref": {
@@ -77,7 +77,7 @@
 	      }
 	    },
 	    {
-	      "name": "inherit",
+	      "name": "inherited",
 	      "type": "bool",
 	      "struct-ref": {
 	        "Package": "",

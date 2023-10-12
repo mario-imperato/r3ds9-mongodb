@@ -15,10 +15,10 @@ else
 
 c.insertOne(
     {
-        "domain": "root",
-        "site" : "*",
+        "name": "theme",
+        "scope": "root",
         "objType": "kv",
-        "category": "console-ui-look",
+        "category": "console-ui",
         "issystem": true,
         "description": "Aspetto UI di amministrazione",
         "inherit": false
@@ -32,3 +32,21 @@ c.insertOne(
         }
     });
 
+c.insertOne(
+    {
+        "name": "theme",
+        "scope": "root/cvf",
+        "objType": "kv",
+        "category": "console-ui",
+        "issystem": true,
+        "description": "Aspetto UI di amministrazione",
+        "inherit": false
+        ,"properties": [
+            { "key": "theme", "value": "theme-2" },
+        ]
+        ,"sysinfo": {
+            "createdat": new Date(),
+            "status": "active",
+            "modifiedat": new Date()
+        }
+    });

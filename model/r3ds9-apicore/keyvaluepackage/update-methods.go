@@ -28,13 +28,13 @@ type UnsetOption func(uopt *UnsetOptions)
 type UnsetOptions struct {
 	DefaultMode UnsetMode
 	OId         UnsetMode
-	Domain      UnsetMode
-	Site        UnsetMode
+	Name        UnsetMode
+	Scope       UnsetMode
 	ObjType     UnsetMode
 	Category    UnsetMode
 	Issystem    UnsetMode
 	Description UnsetMode
-	Inherit     UnsetMode
+	Inherited   UnsetMode
 	Properties  UnsetMode
 	Sysinfo     UnsetMode
 }
@@ -57,14 +57,14 @@ func WithOIdUnsetMode(m UnsetMode) UnsetOption {
 		uopt.OId = m
 	}
 }
-func WithDomainUnsetMode(m UnsetMode) UnsetOption {
+func WithNameUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Domain = m
+		uopt.Name = m
 	}
 }
-func WithSiteUnsetMode(m UnsetMode) UnsetOption {
+func WithScopeUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Site = m
+		uopt.Scope = m
 	}
 }
 func WithObjTypeUnsetMode(m UnsetMode) UnsetOption {
@@ -87,9 +87,9 @@ func WithDescriptionUnsetMode(m UnsetMode) UnsetOption {
 		uopt.Description = m
 	}
 }
-func WithInheritUnsetMode(m UnsetMode) UnsetOption {
+func WithInheritedUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.Inherit = m
+		uopt.Inherited = m
 	}
 }
 func WithPropertiesUnsetMode(m UnsetMode) UnsetOption {
@@ -128,13 +128,13 @@ func GetUpdateDocument(obj *KeyValuePackage, opts ...UnsetOption) UpdateDocument
 	}
 
 	ud := UpdateDocument{}
-	ud.setOrUnsetDomain(obj.Domain, uo.ResolveUnsetMode(uo.Domain))
-	ud.setOrUnsetSite(obj.Site, uo.ResolveUnsetMode(uo.Site))
+	ud.setOrUnsetName(obj.Name, uo.ResolveUnsetMode(uo.Name))
+	ud.setOrUnsetScope(obj.Scope, uo.ResolveUnsetMode(uo.Scope))
 	ud.setOrUnsetObjType(obj.ObjType, uo.ResolveUnsetMode(uo.ObjType))
 	ud.setOrUnsetCategory(obj.Category, uo.ResolveUnsetMode(uo.Category))
 	ud.setOrUnsetIssystem(obj.Issystem, uo.ResolveUnsetMode(uo.Issystem))
 	ud.setOrUnsetDescription(obj.Description, uo.ResolveUnsetMode(uo.Description))
-	ud.setOrUnsetInherit(obj.Inherit, uo.ResolveUnsetMode(uo.Inherit))
+	ud.setOrUnsetInherited(obj.Inherited, uo.ResolveUnsetMode(uo.Inherited))
 	// if len(obj.Properties) > 0 {
 	//   ud.SetProperties ( obj.Properties)
 	// } else {
@@ -184,92 +184,92 @@ func (ud *UpdateDocument) setOrUnsetOId(p primitive.ObjectID, um UnsetMode) {
 	}
 }
 
-//----- domain - string -  [domain]
+//----- name - string -  [name]
 
-// SetDomain No Remarks
-func (ud *UpdateDocument) SetDomain(p string) *UpdateDocument {
-	mName := fmt.Sprintf(DOMAIN)
+// SetName No Remarks
+func (ud *UpdateDocument) SetName(p string) *UpdateDocument {
+	mName := fmt.Sprintf(NAME)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetDomain No Remarks
-func (ud *UpdateDocument) UnsetDomain() *UpdateDocument {
-	mName := fmt.Sprintf(DOMAIN)
+// UnsetName No Remarks
+func (ud *UpdateDocument) UnsetName() *UpdateDocument {
+	mName := fmt.Sprintf(NAME)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetDomain No Remarks
-func (ud *UpdateDocument) setOrUnsetDomain(p string, um UnsetMode) {
+// setOrUnsetName No Remarks
+func (ud *UpdateDocument) setOrUnsetName(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetDomain(p)
+		ud.SetName(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetDomain()
+			ud.UnsetName()
 		case SetData2Default:
-			ud.UnsetDomain()
+			ud.UnsetName()
 		}
 	}
 }
 
-func UpdateWithDomain(p string) UpdateOption {
+func UpdateWithName(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetDomain(p)
+			ud.SetName(p)
 		} else {
-			ud.UnsetDomain()
+			ud.UnsetName()
 		}
 	}
 }
 
-//----- site - string -  [site]
+//----- scope - string -  [scope]
 
-// SetSite No Remarks
-func (ud *UpdateDocument) SetSite(p string) *UpdateDocument {
-	mName := fmt.Sprintf(SITE)
+// SetScope No Remarks
+func (ud *UpdateDocument) SetScope(p string) *UpdateDocument {
+	mName := fmt.Sprintf(SCOPE)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetSite No Remarks
-func (ud *UpdateDocument) UnsetSite() *UpdateDocument {
-	mName := fmt.Sprintf(SITE)
+// UnsetScope No Remarks
+func (ud *UpdateDocument) UnsetScope() *UpdateDocument {
+	mName := fmt.Sprintf(SCOPE)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetSite No Remarks
-func (ud *UpdateDocument) setOrUnsetSite(p string, um UnsetMode) {
+// setOrUnsetScope No Remarks
+func (ud *UpdateDocument) setOrUnsetScope(p string, um UnsetMode) {
 	if p != "" {
-		ud.SetSite(p)
+		ud.SetScope(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetSite()
+			ud.UnsetScope()
 		case SetData2Default:
-			ud.UnsetSite()
+			ud.UnsetScope()
 		}
 	}
 }
 
-func UpdateWithSite(p string) UpdateOption {
+func UpdateWithScope(p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetSite(p)
+			ud.SetScope(p)
 		} else {
-			ud.UnsetSite()
+			ud.UnsetScope()
 		}
 	}
 }
@@ -454,47 +454,47 @@ func UpdateWithDescription(p string) UpdateOption {
 	}
 }
 
-//----- inherit - bool -  [inherit]
+//----- inherited - bool -  [inherited]
 
-// SetInherit No Remarks
-func (ud *UpdateDocument) SetInherit(p bool) *UpdateDocument {
-	mName := fmt.Sprintf(INHERIT)
+// SetInherited No Remarks
+func (ud *UpdateDocument) SetInherited(p bool) *UpdateDocument {
+	mName := fmt.Sprintf(INHERITED)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetInherit
-func (ud *UpdateDocument) UnsetInherit() *UpdateDocument {
-	mName := fmt.Sprintf(INHERIT)
+// UnsetInherited
+func (ud *UpdateDocument) UnsetInherited() *UpdateDocument {
+	mName := fmt.Sprintf(INHERITED)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetInherit No Remarks
-func (ud *UpdateDocument) setOrUnsetInherit(p bool, um UnsetMode) {
+// setOrUnsetInherited No Remarks
+func (ud *UpdateDocument) setOrUnsetInherited(p bool, um UnsetMode) {
 	if p {
-		ud.SetInherit(p)
+		ud.SetInherited(p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetInherit()
+			ud.UnsetInherited()
 		case SetData2Default:
-			ud.UnsetInherit()
+			ud.UnsetInherited()
 		}
 	}
 }
 
-func UpdateWithInherit(p bool) UpdateOption {
+func UpdateWithInherited(p bool) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p {
-			ud.SetInherit(p)
+			ud.SetInherited(p)
 		} else {
-			ud.UnsetInherit()
+			ud.UnsetInherited()
 		}
 	}
 }

@@ -41,75 +41,75 @@ func (ca *Criteria) AndOIdIn(p []primitive.ObjectID) *Criteria {
 	return ca
 }
 
-//----- domain of type string
-//----- domain - string -  [domain]
+//----- name of type string
+//----- name - string -  [name]
 
-// AndDomainEqTo No Remarks
-func (ca *Criteria) AndDomainEqTo(p string) *Criteria {
+// AndNameEqTo No Remarks
+func (ca *Criteria) AndNameEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(DOMAIN)
+	mName := fmt.Sprintf(NAME)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-// AndDomainIsNullOrUnset No Remarks
-func (ca *Criteria) AndDomainIsNullOrUnset() *Criteria {
+// AndNameIsNullOrUnset No Remarks
+func (ca *Criteria) AndNameIsNullOrUnset() *Criteria {
 
-	mName := fmt.Sprintf(DOMAIN)
+	mName := fmt.Sprintf(NAME)
 	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndDomainIn(p []string) *Criteria {
+func (ca *Criteria) AndNameIn(p []string) *Criteria {
 
 	if len(p) == 0 {
 		return ca
 	}
 
-	mName := fmt.Sprintf(DOMAIN)
+	mName := fmt.Sprintf(NAME)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-//----- site of type string
-//----- site - string -  [site]
+//----- scope of type string
+//----- scope - string -  [scope]
 
-// AndSiteEqTo No Remarks
-func (ca *Criteria) AndSiteEqTo(p string) *Criteria {
+// AndScopeEqTo No Remarks
+func (ca *Criteria) AndScopeEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(SITE)
+	mName := fmt.Sprintf(SCOPE)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-// AndSiteIsNullOrUnset No Remarks
-func (ca *Criteria) AndSiteIsNullOrUnset() *Criteria {
+// AndScopeIsNullOrUnset No Remarks
+func (ca *Criteria) AndScopeIsNullOrUnset() *Criteria {
 
-	mName := fmt.Sprintf(SITE)
+	mName := fmt.Sprintf(SCOPE)
 	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndSiteIn(p []string) *Criteria {
+func (ca *Criteria) AndScopeIn(p []string) *Criteria {
 
 	if len(p) == 0 {
 		return ca
 	}
 
-	mName := fmt.Sprintf(SITE)
+	mName := fmt.Sprintf(SCOPE)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca
