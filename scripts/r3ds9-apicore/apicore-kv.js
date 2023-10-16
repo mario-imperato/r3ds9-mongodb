@@ -19,7 +19,6 @@ c.insertOne(
         "scope": "root",
         "objType": "kv",
         "category": "console-ui",
-        "issystem": true,
         "description": "Aspetto UI di amministrazione",
         "inherit": false
         ,"properties": [
@@ -38,7 +37,6 @@ c.insertOne(
         "scope": "root/cvf",
         "objType": "kv",
         "category": "console-ui",
-        "issystem": true,
         "description": "Aspetto UI di amministrazione",
         "inherit": false
         ,"properties": [

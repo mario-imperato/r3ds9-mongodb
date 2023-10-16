@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (kvp KeyValuePackage) ScopeType() (string, string, error) {
+func (kvp *KeyValuePackage) ScopeType() (string, error) {
 	return ScopeTypeFrom(kvp.Scope)
 }
 
@@ -14,20 +14,27 @@ func (kvp *KeyValuePackage) IsMoreSpecificThan(another *KeyValuePackage) (bool, 
 	return ScopeIsMoreSpecificThan(kvp.Scope, another.Scope)
 }
 
-func ScopeTypeFrom(scope string) (string, string, error) {
+func ScopeTypeFrom(scope string) (string, error) {
 	if scope == "" {
-		return "unknown-scope", "", fmt.Errorf("scope cannot be resolved since is missing")
+		return "unknown-scope", fmt.Errorf("scope cannot be resolved since is missing")
 	}
 
 	if scope == definitions.RootDomain {
-		return "root-scope", definitions.RootDomain, nil
+		return "root-scope", nil
 	}
 
-	if strings.Index(scope, "/") < 0 {
-		return "domain-scope", strings.Join([]string{definitions.RootDomain, scope}, "/"), nil
+	var scopeType string
+	var err error
+	switch strings.Count(scope, "/") {
+	case 1:
+		scopeType = "domain-scope"
+	case 2:
+		scopeType = "site-scope"
+	default:
+		err = fmt.Errorf("malformed scope")
 	}
 
-	return "site-scope", strings.Join([]string{definitions.RootDomain, scope}, "/"), nil
+	return scopeType, err
 }
 
 func ScopeTypeAndPathFromDomainSite(domain, site string) (string, string) {
@@ -51,22 +58,25 @@ func ScopeIsMoreSpecificThan(scope string, another string) (bool, error) {
 		return true, nil
 	}
 
-	_, scopePath, err := ScopeTypeFrom(scope)
-	if err != nil {
-		return false, err
-	}
+	/*
+		_, scopePath, err := ScopeTypeFrom(scope)
+		if err != nil {
+			return false, err
+		}
 
-	_, anotherScopePath, err := ScopeTypeFrom(another)
-	if err != nil {
-		return false, err
-	}
+		_, anotherScopePath, err := ScopeTypeFrom(another)
+		if err != nil {
+			return false, err
+		}
+	*/
 
-	if strings.HasPrefix(scopePath, anotherScopePath) {
+	if strings.HasPrefix(scope, another) {
 		return true, nil
 	}
 
-	if !strings.HasPrefix(anotherScopePath, scopePath) {
-		err = fmt.Errorf("incompatible paths compared: %s against %s", scopePath, anotherScopePath)
+	var err error
+	if !strings.HasPrefix(another, scope) {
+		err = fmt.Errorf("incompatible paths compared: %s against %s", scope, another)
 	}
 
 	return false, err

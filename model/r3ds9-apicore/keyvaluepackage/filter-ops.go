@@ -42,7 +42,7 @@ func FindByDomainSiteName(c *mongo.Collection, domain, site, pkgName string) (Ke
 
 	if !kvp.IsZero() {
 		scopeType, _ := ScopeTypeAndPathFromDomainSite(domain, site)
-		kvpScopeType, _, _ := kvp.ScopeType()
+		kvpScopeType, _ := kvp.ScopeType()
 		if scopeType != kvpScopeType {
 			kvp.Inherited = true
 		}
@@ -100,7 +100,7 @@ func FindByDomainSiteCategoryList(c *mongo.Collection, domain, site string, cate
 
 		if kvp1.Name != kvp.Name {
 			if !kvp.IsZero() {
-				kvpScopeType, _, _ := kvp.ScopeType()
+				kvpScopeType, _ := kvp.ScopeType()
 				if reqScopeType != kvpScopeType {
 					kvp.Inherited = true
 				}
@@ -117,7 +117,7 @@ func FindByDomainSiteCategoryList(c *mongo.Collection, domain, site string, cate
 	}
 
 	if !kvp.IsZero() {
-		kvpScopeType, _, _ := kvp.ScopeType()
+		kvpScopeType, _ := kvp.ScopeType()
 		if reqScopeType != kvpScopeType {
 			kvp.Inherited = true
 		}
@@ -130,7 +130,7 @@ func FindByDomainSiteCategoryList(c *mongo.Collection, domain, site string, cate
 
 	if !kvp.IsZero() {
 		scopeType, _ := ScopeTypeAndPathFromDomainSite(domain, site)
-		kvpScopeType, _, _ := kvp.ScopeType()
+		kvpScopeType, _ := kvp.ScopeType()
 		if scopeType != kvpScopeType {
 			kvp.Inherited = true
 		}
