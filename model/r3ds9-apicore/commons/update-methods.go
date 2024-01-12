@@ -27,7 +27,7 @@ type UnsetOption func(uopt *UnsetOptions)
 type UnsetOptions struct {
 	DefaultMode UnsetMode
 	Sysinfo     UnsetMode
-	App         UnsetMode
+	Apps        UnsetMode
 	Roles       UnsetMode
 }
 
@@ -49,9 +49,9 @@ func WithSysinfoUnsetMode(m UnsetMode) UnsetOption {
 		uopt.Sysinfo = m
 	}
 }
-func WithAppUnsetMode(m UnsetMode) UnsetOption {
+func WithAppsUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
-		uopt.App = m
+		uopt.Apps = m
 	}
 }
 func WithRolesUnsetMode(m UnsetMode) UnsetOption {
@@ -90,10 +90,10 @@ func GetUpdateDocument(obj *Commons, opts ...UnsetOption) UpdateDocument {
 	// } else {
 	ud.setOrUnsetSysinfo(obj.Sysinfo, uo.ResolveUnsetMode(uo.Sysinfo))
 	// }
-	// if !obj.App.IsZero() {
-	//   ud.SetApp ( obj.App)
+	// if len(obj.Apps) > 0 {
+	//   ud.SetApps ( obj.Apps)
 	// } else {
-	ud.setOrUnsetApp(obj.App, uo.ResolveUnsetMode(uo.App))
+	ud.setOrUnsetApps(obj.Apps, uo.ResolveUnsetMode(uo.Apps))
 	// }
 	// if len(obj.Roles) > 0 {
 	//   ud.SetRoles ( obj.Roles)
@@ -305,320 +305,353 @@ func UpdateWithSysinfoModifiedat(p primitive.DateTime) UpdateOption {
 	}
 }
 
-// ----- app - struct - App [app]
-// SetApp No Remarks
-func (ud *UpdateDocument) SetApp(p App) *UpdateDocument {
-	mName := fmt.Sprintf(APP)
+// ----- apps - array -  [apps]
+// SetApps No Remarks
+func (ud *UpdateDocument) SetApps(p []App) *UpdateDocument {
+	mName := fmt.Sprintf(APPS)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetApp No Remarks
-func (ud *UpdateDocument) UnsetApp() *UpdateDocument {
-	mName := fmt.Sprintf(APP)
+// UnsetApps No Remarks
+func (ud *UpdateDocument) UnsetApps() *UpdateDocument {
+	mName := fmt.Sprintf(APPS)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetApp No Remarks - here2
-func (ud *UpdateDocument) setOrUnsetApp(p App, um UnsetMode) {
+// setOrUnsetApps No Remarks - here2
+func (ud *UpdateDocument) setOrUnsetApps(p []App, um UnsetMode) {
 
-	//----- struct\n
+	//----- array\n
 
+	if len(p) > 0 {
+		ud.SetApps(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetApps()
+		case SetData2Default:
+			ud.UnsetApps()
+		}
+	}
+}
+
+func UpdateWithApps(p []App) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if len(p) > 0 {
+			ud.SetApps(p)
+		} else {
+			ud.UnsetApps()
+		}
+	}
+}
+
+// ----- [] - struct - App [apps.[]]
+// SetAppsI No Remarks
+func (ud *UpdateDocument) SetAppsI(ndxI int, p App) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I, ndxI)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetAppsI No Remarks
+func (ud *UpdateDocument) UnsetAppsI(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I, ndxI)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetAppsI No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsI(ndxI int, p App, um UnsetMode) {
 	if !p.IsZero() {
-		ud.SetApp(p)
+		ud.SetAppsI(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetApp()
+			ud.UnsetAppsI(ndxI)
 		case SetData2Default:
-			ud.UnsetApp()
+			ud.UnsetAppsI(ndxI)
 		}
 	}
 }
 
-func UpdateWithApp(p App) UpdateOption {
-	return func(ud *UpdateDocument) {
+//----- id - string -  [apps.[].id apps.id]
 
-		if !p.IsZero() {
-			ud.SetApp(p)
-		} else {
-			ud.UnsetApp()
-		}
-	}
-}
-
-//----- id - string -  [app.id]
-
-// SetAppId No Remarks
-func (ud *UpdateDocument) SetAppId(p string) *UpdateDocument {
-	mName := fmt.Sprintf(APP_ID)
+// SetAppsIId No Remarks
+func (ud *UpdateDocument) SetAppsIId(ndxI int, p string) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_ID, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetAppId No Remarks
-func (ud *UpdateDocument) UnsetAppId() *UpdateDocument {
-	mName := fmt.Sprintf(APP_ID)
+// UnsetAppsIId No Remarks
+func (ud *UpdateDocument) UnsetAppsIId(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_ID, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetAppId No Remarks
-func (ud *UpdateDocument) setOrUnsetAppId(p string, um UnsetMode) {
+// setOrUnsetAppsIId No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsIId(ndxI int, p string, um UnsetMode) {
 	if p != "" {
-		ud.SetAppId(p)
+		ud.SetAppsIId(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetAppId()
+			ud.UnsetAppsIId(ndxI)
 		case SetData2Default:
-			ud.UnsetAppId()
+			ud.UnsetAppsIId(ndxI)
 		}
 	}
 }
 
-func UpdateWithAppId(p string) UpdateOption {
+func UpdateWithAppsIId(ndxI int, p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetAppId(p)
+			ud.SetAppsIId(ndxI, p)
 		} else {
-			ud.UnsetAppId()
+			ud.UnsetAppsIId(ndxI)
 		}
 	}
 }
 
-//----- objType - string -  [app.objType]
+//----- objType - string -  [apps.[].objType apps.objType]
 
-// SetAppObjType No Remarks
-func (ud *UpdateDocument) SetAppObjType(p string) *UpdateDocument {
-	mName := fmt.Sprintf(APP_OBJTYPE)
+// SetAppsIObjType No Remarks
+func (ud *UpdateDocument) SetAppsIObjType(ndxI int, p string) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_OBJTYPE, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetAppObjType No Remarks
-func (ud *UpdateDocument) UnsetAppObjType() *UpdateDocument {
-	mName := fmt.Sprintf(APP_OBJTYPE)
+// UnsetAppsIObjType No Remarks
+func (ud *UpdateDocument) UnsetAppsIObjType(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_OBJTYPE, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetAppObjType No Remarks
-func (ud *UpdateDocument) setOrUnsetAppObjType(p string, um UnsetMode) {
+// setOrUnsetAppsIObjType No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsIObjType(ndxI int, p string, um UnsetMode) {
 	if p != "" {
-		ud.SetAppObjType(p)
+		ud.SetAppsIObjType(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetAppObjType()
+			ud.UnsetAppsIObjType(ndxI)
 		case SetData2Default:
-			ud.UnsetAppObjType()
+			ud.UnsetAppsIObjType(ndxI)
 		}
 	}
 }
 
-func UpdateWithAppObjType(p string) UpdateOption {
+func UpdateWithAppsIObjType(ndxI int, p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetAppObjType(p)
+			ud.SetAppsIObjType(ndxI, p)
 		} else {
-			ud.UnsetAppObjType()
+			ud.UnsetAppsIObjType(ndxI)
 		}
 	}
 }
 
-//----- name - string -  [app.name]
+//----- name - string -  [apps.[].name apps.name]
 
-// SetAppName No Remarks
-func (ud *UpdateDocument) SetAppName(p string) *UpdateDocument {
-	mName := fmt.Sprintf(APP_NAME)
+// SetAppsIName No Remarks
+func (ud *UpdateDocument) SetAppsIName(ndxI int, p string) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_NAME, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetAppName No Remarks
-func (ud *UpdateDocument) UnsetAppName() *UpdateDocument {
-	mName := fmt.Sprintf(APP_NAME)
+// UnsetAppsIName No Remarks
+func (ud *UpdateDocument) UnsetAppsIName(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_NAME, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetAppName No Remarks
-func (ud *UpdateDocument) setOrUnsetAppName(p string, um UnsetMode) {
+// setOrUnsetAppsIName No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsIName(ndxI int, p string, um UnsetMode) {
 	if p != "" {
-		ud.SetAppName(p)
+		ud.SetAppsIName(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetAppName()
+			ud.UnsetAppsIName(ndxI)
 		case SetData2Default:
-			ud.UnsetAppName()
+			ud.UnsetAppsIName(ndxI)
 		}
 	}
 }
 
-func UpdateWithAppName(p string) UpdateOption {
+func UpdateWithAppsIName(ndxI int, p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetAppName(p)
+			ud.SetAppsIName(ndxI, p)
 		} else {
-			ud.UnsetAppName()
+			ud.UnsetAppsIName(ndxI)
 		}
 	}
 }
 
-//----- description - string -  [app.description]
+//----- description - string -  [apps.[].description apps.description]
 
-// SetAppDescription No Remarks
-func (ud *UpdateDocument) SetAppDescription(p string) *UpdateDocument {
-	mName := fmt.Sprintf(APP_DESCRIPTION)
+// SetAppsIDescription No Remarks
+func (ud *UpdateDocument) SetAppsIDescription(ndxI int, p string) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_DESCRIPTION, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetAppDescription No Remarks
-func (ud *UpdateDocument) UnsetAppDescription() *UpdateDocument {
-	mName := fmt.Sprintf(APP_DESCRIPTION)
+// UnsetAppsIDescription No Remarks
+func (ud *UpdateDocument) UnsetAppsIDescription(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_DESCRIPTION, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetAppDescription No Remarks
-func (ud *UpdateDocument) setOrUnsetAppDescription(p string, um UnsetMode) {
+// setOrUnsetAppsIDescription No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsIDescription(ndxI int, p string, um UnsetMode) {
 	if p != "" {
-		ud.SetAppDescription(p)
+		ud.SetAppsIDescription(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetAppDescription()
+			ud.UnsetAppsIDescription(ndxI)
 		case SetData2Default:
-			ud.UnsetAppDescription()
+			ud.UnsetAppsIDescription(ndxI)
 		}
 	}
 }
 
-func UpdateWithAppDescription(p string) UpdateOption {
+func UpdateWithAppsIDescription(ndxI int, p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetAppDescription(p)
+			ud.SetAppsIDescription(ndxI, p)
 		} else {
-			ud.UnsetAppDescription()
+			ud.UnsetAppsIDescription(ndxI)
 		}
 	}
 }
 
-//----- path - string -  [app.path]
+//----- path - string -  [apps.[].path apps.path]
 
-// SetAppPath No Remarks
-func (ud *UpdateDocument) SetAppPath(p string) *UpdateDocument {
-	mName := fmt.Sprintf(APP_PATH)
+// SetAppsIPath No Remarks
+func (ud *UpdateDocument) SetAppsIPath(ndxI int, p string) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_PATH, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetAppPath No Remarks
-func (ud *UpdateDocument) UnsetAppPath() *UpdateDocument {
-	mName := fmt.Sprintf(APP_PATH)
+// UnsetAppsIPath No Remarks
+func (ud *UpdateDocument) UnsetAppsIPath(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_PATH, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetAppPath No Remarks
-func (ud *UpdateDocument) setOrUnsetAppPath(p string, um UnsetMode) {
+// setOrUnsetAppsIPath No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsIPath(ndxI int, p string, um UnsetMode) {
 	if p != "" {
-		ud.SetAppPath(p)
+		ud.SetAppsIPath(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetAppPath()
+			ud.UnsetAppsIPath(ndxI)
 		case SetData2Default:
-			ud.UnsetAppPath()
+			ud.UnsetAppsIPath(ndxI)
 		}
 	}
 }
 
-func UpdateWithAppPath(p string) UpdateOption {
+func UpdateWithAppsIPath(ndxI int, p string) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p != "" {
-			ud.SetAppPath(p)
+			ud.SetAppsIPath(ndxI, p)
 		} else {
-			ud.UnsetAppPath()
+			ud.UnsetAppsIPath(ndxI)
 		}
 	}
 }
 
-//----- roleRequired - bool -  [app.roleRequired]
+//----- roleRequired - bool -  [apps.[].roleRequired apps.roleRequired]
 
-// SetAppRoleRequired No Remarks
-func (ud *UpdateDocument) SetAppRoleRequired(p bool) *UpdateDocument {
-	mName := fmt.Sprintf(APP_ROLEREQUIRED)
+// SetAppsIRoleRequired No Remarks
+func (ud *UpdateDocument) SetAppsIRoleRequired(ndxI int, p bool) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_ROLEREQUIRED, ndxI)
 	ud.Set().Add(func() bson.E {
 		return bson.E{Key: mName, Value: p}
 	})
 	return ud
 }
 
-// UnsetAppRoleRequired
-func (ud *UpdateDocument) UnsetAppRoleRequired() *UpdateDocument {
-	mName := fmt.Sprintf(APP_ROLEREQUIRED)
+// UnsetAppsIRoleRequired
+func (ud *UpdateDocument) UnsetAppsIRoleRequired(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(APPS_I_ROLEREQUIRED, ndxI)
 	ud.Unset().Add(func() bson.E {
 		return bson.E{Key: mName, Value: ""}
 	})
 	return ud
 }
 
-// setOrUnsetAppRoleRequired No Remarks
-func (ud *UpdateDocument) setOrUnsetAppRoleRequired(p bool, um UnsetMode) {
+// setOrUnsetAppsIRoleRequired No Remarks
+func (ud *UpdateDocument) setOrUnsetAppsIRoleRequired(ndxI int, p bool, um UnsetMode) {
 	if p {
-		ud.SetAppRoleRequired(p)
+		ud.SetAppsIRoleRequired(ndxI, p)
 	} else {
 		switch um {
 		case KeepCurrent:
 		case UnsetData:
-			ud.UnsetAppRoleRequired()
+			ud.UnsetAppsIRoleRequired(ndxI)
 		case SetData2Default:
-			ud.UnsetAppRoleRequired()
+			ud.UnsetAppsIRoleRequired(ndxI)
 		}
 	}
 }
 
-func UpdateWithAppRoleRequired(p bool) UpdateOption {
+func UpdateWithAppsIRoleRequired(ndxI int, p bool) UpdateOption {
 	return func(ud *UpdateDocument) {
 		if p {
-			ud.SetAppRoleRequired(p)
+			ud.SetAppsIRoleRequired(ndxI, p)
 		} else {
-			ud.UnsetAppRoleRequired()
+			ud.UnsetAppsIRoleRequired(ndxI)
 		}
 	}
 }

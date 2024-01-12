@@ -107,6 +107,22 @@
 	              "Package": "",
 	              "Item": null
 	            }
+	          },
+	          {
+	            "name": "order",
+	            "type": "int",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "kind",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
 	          }
 	        ],
 	        "struct-ref": {

@@ -5,7 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apigtw/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -666,6 +666,111 @@ func UpdateWithPropertiesIValue(ndxI int, p string) UpdateOption {
 			ud.SetPropertiesIValue(ndxI, p)
 		} else {
 			ud.UnsetPropertiesIValue(ndxI)
+		}
+	}
+}
+
+//----- order - int -  [properties.[].order properties.order]
+
+// SetPropertiesIOrder No Remarks
+func (ud *UpdateDocument) SetPropertiesIOrder(ndxI int, p int32) *UpdateDocument {
+	mName := fmt.Sprintf(PROPERTIES_I_ORDER, ndxI)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetPropertiesIOrder No Remarks
+func (ud *UpdateDocument) UnsetPropertiesIOrder(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(PROPERTIES_I_ORDER, ndxI)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetPropertiesIOrder No Remarks
+func (ud *UpdateDocument) setOrUnsetPropertiesIOrder(ndxI int, p int32, um UnsetMode) {
+	if p != 0 {
+		ud.SetPropertiesIOrder(ndxI, p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetPropertiesIOrder(ndxI)
+		case SetData2Default:
+			ud.UnsetPropertiesIOrder(ndxI)
+		}
+	}
+}
+
+// IncPropertiesIOrder No Remarks
+func (ud *UpdateDocument) IncPropertiesIOrder(ndxI int, p int32) *UpdateDocument {
+	mName := fmt.Sprintf(PROPERTIES_I_ORDER, ndxI)
+	ud.Inc().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+func UpdateWithPropertiesIOrder(ndxI int, p int32) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p != 0 {
+			ud.SetPropertiesIOrder(ndxI, p)
+		} else {
+			ud.UnsetPropertiesIOrder(ndxI)
+		}
+	}
+}
+
+func UpdateWithPropertiesIOrderIncrement(ndxI int, p int32) UpdateOption {
+	return func(ud *UpdateDocument) {
+		ud.IncPropertiesIOrder(ndxI, p)
+	}
+}
+
+//----- kind - string -  [properties.[].kind properties.kind]
+
+// SetPropertiesIKind No Remarks
+func (ud *UpdateDocument) SetPropertiesIKind(ndxI int, p string) *UpdateDocument {
+	mName := fmt.Sprintf(PROPERTIES_I_KIND, ndxI)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetPropertiesIKind No Remarks
+func (ud *UpdateDocument) UnsetPropertiesIKind(ndxI int) *UpdateDocument {
+	mName := fmt.Sprintf(PROPERTIES_I_KIND, ndxI)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetPropertiesIKind No Remarks
+func (ud *UpdateDocument) setOrUnsetPropertiesIKind(ndxI int, p string, um UnsetMode) {
+	if p != "" {
+		ud.SetPropertiesIKind(ndxI, p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetPropertiesIKind(ndxI)
+		case SetData2Default:
+			ud.UnsetPropertiesIKind(ndxI)
+		}
+	}
+}
+
+func UpdateWithPropertiesIKind(ndxI int, p string) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p != "" {
+			ud.SetPropertiesIKind(ndxI, p)
+		} else {
+			ud.UnsetPropertiesIKind(ndxI)
 		}
 	}
 }

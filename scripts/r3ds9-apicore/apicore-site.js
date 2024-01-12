@@ -23,10 +23,10 @@ db[r3ds9CollectionName].insertOne(
         "apps": [
             {
                 "id": "app-home"
-                ,"objType": "app-www"
+                ,"objType": "app-admin"
                 ,"name": "Applicazione Home"
                 ,"description": "Applicazione Home"
-                ,"path": "ng-hello-world/index.tmpl"
+                ,"path": "r3ds9-app-home-console/index.tmpl"
             }
         ]
         ,"sysinfo": {

@@ -12,37 +12,37 @@ func FilterGoInfo() string {
 }
 
 //----- objType of type string
-//----- objType - string -  [app.objType]
+//----- objType - string -  [apps.[].objType apps.objType]
 
-// AndAppObjTypeEqTo No Remarks
-func (ca *Criteria) AndAppObjTypeEqTo(p string) *Criteria {
+// AndAppsObjTypeEqTo No Remarks
+func (ca *Criteria) AndAppsObjTypeEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(APP_OBJTYPE)
+	mName := fmt.Sprintf(APPS_OBJTYPE)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-// AndAppObjTypeIsNullOrUnset No Remarks
-func (ca *Criteria) AndAppObjTypeIsNullOrUnset() *Criteria {
+// AndAppsObjTypeIsNullOrUnset No Remarks
+func (ca *Criteria) AndAppsObjTypeIsNullOrUnset() *Criteria {
 
-	mName := fmt.Sprintf(APP_OBJTYPE)
+	mName := fmt.Sprintf(APPS_OBJTYPE)
 	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndAppObjTypeIn(p []string) *Criteria {
+func (ca *Criteria) AndAppsObjTypeIn(p []string) *Criteria {
 
 	if len(p) == 0 {
 		return ca
 	}
 
-	mName := fmt.Sprintf(APP_OBJTYPE)
+	mName := fmt.Sprintf(APPS_OBJTYPE)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca

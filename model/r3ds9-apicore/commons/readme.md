@@ -45,60 +45,68 @@
 	      }
 	    },
 	    {
-	      "name": "app",
-	      "struct-name": "App",
-	      "type": "struct",
-	      "attributes": [
-	        {
-	          "name": "id",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
+	      "name": "apps",
+	      "type": "array",
+	      "item": {
+	        "name": "[]",
+	        "struct-name": "App",
+	        "type": "struct",
+	        "attributes": [
+	          {
+	            "name": "id",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "objType",
+	            "type": "string",
+	            "queryable": true,
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "name",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "description",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "path",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "roleRequired",
+	            "type": "bool",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
 	          }
-	        },
-	        {
-	          "name": "objType",
-	          "type": "string",
-	          "queryable": true,
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
-	        },
-	        {
-	          "name": "name",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
-	        },
-	        {
-	          "name": "description",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
-	        },
-	        {
-	          "name": "path",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
-	        },
-	        {
-	          "name": "roleRequired",
-	          "type": "bool",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
+	        ],
+	        "struct-ref": {
+	          "Package": "",
+	          "Item": null
 	        }
-	      ],
+	      },
 	      "struct-ref": {
 	        "Package": "",
 	        "Item": null

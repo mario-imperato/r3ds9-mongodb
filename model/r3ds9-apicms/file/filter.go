@@ -1,4 +1,4 @@
-package keyvaluepackage
+package file
 
 import (
 	"fmt"

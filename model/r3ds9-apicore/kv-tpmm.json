@@ -17,6 +17,8 @@
          "item": { "type": "struct", "struct-name": "KeyValue", "attributes": [
            { "name": "key"             , "type": "string"}
           ,{ "name": "value"           , "type": "string"}
+          ,{ "name": "order"           , "type": "int"}
+          ,{ "name": "kind"           , "type": "string"}
          ]}
     }
    ,{ "name": "sysinfo", "type": "ref-struct",

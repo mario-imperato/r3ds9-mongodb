@@ -3,30 +3,37 @@ package commons
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
 const (
-	SYSINFO            = "sysinfo"
-	SYSINFO_STATUS     = "sysinfo.status"
-	SYSINFO_CREATEDAT  = "sysinfo.createdat"
-	SYSINFO_MODIFIEDAT = "sysinfo.modifiedat"
-	APP                = "app"
-	APP_ID             = "app.id"
-	APP_OBJTYPE        = "app.objType"
-	APP_NAME           = "app.name"
-	APP_DESCRIPTION    = "app.description"
-	APP_PATH           = "app.path"
-	APP_ROLEREQUIRED   = "app.roleRequired"
-	ROLES              = "roles"
-	ROLES_I            = "roles.%d"
-	ROLES_I_DOMAIN     = "roles.%d.domain"
-	ROLES_DOMAIN       = "roles.domain"
-	ROLES_I_SITE       = "roles.%d.site"
-	ROLES_SITE         = "roles.site"
-	ROLES_I_APPS       = "roles.%d.apps"
-	ROLES_APPS         = "roles.apps"
+	SYSINFO             = "sysinfo"
+	SYSINFO_STATUS      = "sysinfo.status"
+	SYSINFO_CREATEDAT   = "sysinfo.createdat"
+	SYSINFO_MODIFIEDAT  = "sysinfo.modifiedat"
+	APPS                = "apps"
+	APPS_I              = "apps.%d"
+	APPS_I_ID           = "apps.%d.id"
+	APPS_ID             = "apps.id"
+	APPS_I_OBJTYPE      = "apps.%d.objType"
+	APPS_OBJTYPE        = "apps.objType"
+	APPS_I_NAME         = "apps.%d.name"
+	APPS_NAME           = "apps.name"
+	APPS_I_DESCRIPTION  = "apps.%d.description"
+	APPS_DESCRIPTION    = "apps.description"
+	APPS_I_PATH         = "apps.%d.path"
+	APPS_PATH           = "apps.path"
+	APPS_I_ROLEREQUIRED = "apps.%d.roleRequired"
+	APPS_ROLEREQUIRED   = "apps.roleRequired"
+	ROLES               = "roles"
+	ROLES_I             = "roles.%d"
+	ROLES_I_DOMAIN      = "roles.%d.domain"
+	ROLES_DOMAIN        = "roles.domain"
+	ROLES_I_SITE        = "roles.%d.site"
+	ROLES_SITE          = "roles.site"
+	ROLES_I_APPS        = "roles.%d.apps"
+	ROLES_APPS          = "roles.apps"
 )
 
 type Commons struct {
 	Sysinfo SysInfo    `json:"sysinfo,omitempty" bson:"sysinfo,omitempty"`
-	App     App        `json:"app,omitempty" bson:"app,omitempty"`
+	Apps    []App      `json:"apps,omitempty" bson:"apps,omitempty"`
 	Roles   []UserRole `json:"roles,omitempty" bson:"roles,omitempty"`
 }
 
@@ -35,7 +42,7 @@ func (s Commons) IsZero() bool {
 	   if s.Sysinfo.IsZero() {
 	       return false
 	   }
-	   if s.App.IsZero() {
+	   if len(s.Apps) == 0 {
 	       return false
 	   }
 	   if len(s.Roles) == 0 {
@@ -44,7 +51,7 @@ func (s Commons) IsZero() bool {
 	       return true
 	*/
 
-	return s.Sysinfo.IsZero() && s.App.IsZero() && len(s.Roles) == 0
+	return s.Sysinfo.IsZero() && len(s.Apps) == 0 && len(s.Roles) == 0
 }
 
 type SysInfo struct {

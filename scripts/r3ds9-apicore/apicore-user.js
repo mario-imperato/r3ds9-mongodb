@@ -44,3 +44,24 @@ c.insertOne(
             "modifiedat": new Date()
         }
     });
+
+c.insertOne(
+    {
+        "nickname" : "nambalorian",
+        "objType"  : "user",
+        "password" : "8a3308114f80796bb4b6d407e605752b167c6b75",
+        "firstname": "Wanamba",
+        "lastname" : "ForEver",
+        "roles": [
+            {
+                "domain": "*"
+                ,"site" : "*"
+                ,"apps" : "app-home:admin:requested-role;app-people-admin:admin"
+            }
+        ]
+        ,"sysinfo": {
+            "createdat": new Date(),
+            "status": "active",
+            "modifiedat": new Date()
+        }
+    });
