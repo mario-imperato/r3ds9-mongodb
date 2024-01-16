@@ -41,7 +41,7 @@ func FindBySId(collection *mongo.Collection, sid string, mustFind bool, findOpti
 func Insert(ctx context.Context, aCollection *mongo.Collection, s *Session) (string, error) {
 
 	const SemLogContext = "r3ds9-core/session/insert"
-	log.Trace().Str("nickname", s.Nickname).Msg(SemLogContext)
+	log.Trace().Str("user-id", s.Userid).Msg(SemLogContext)
 
 	now := time.Now()
 	s.Sysinfo.Status = "active"

@@ -1,12 +1,11 @@
 package session
 
-import (
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-)
+import "go.mongodb.org/mongo-driver/bson/primitive"
+import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
 
 const (
 	OID        = "_id"
+	USERID     = "userid"
 	NICKNAME   = "nickname"
 	REMOTEADDR = "remoteaddr"
 	FLAGS      = "flags"
@@ -14,7 +13,8 @@ const (
 )
 
 type Session struct {
-	OId        primitive.ObjectID `json:"-" bson:"_id,omitempty"`
+	OId        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Userid     string             `json:"userid,omitempty" bson:"userid,omitempty"`
 	Nickname   string             `json:"nickname,omitempty" bson:"nickname,omitempty"`
 	Remoteaddr string             `json:"remoteaddr,omitempty" bson:"remoteaddr,omitempty"`
 	Flags      string             `json:"flags,omitempty" bson:"flags,omitempty"`
@@ -24,6 +24,9 @@ type Session struct {
 func (s Session) IsZero() bool {
 	/*
 	   if s.OId == primitive.NilObjectID {
+	       return false
+	   }
+	   if s.Userid == "" {
 	       return false
 	   }
 	   if s.Nickname == "" {
@@ -41,5 +44,5 @@ func (s Session) IsZero() bool {
 	       return true
 	*/
 
-	return s.OId == primitive.NilObjectID && s.Nickname == "" && s.Remoteaddr == "" && s.Flags == "" && s.Sysinfo.IsZero()
+	return s.OId == primitive.NilObjectID && s.Userid == "" && s.Nickname == "" && s.Remoteaddr == "" && s.Flags == "" && s.Sysinfo.IsZero()
 }

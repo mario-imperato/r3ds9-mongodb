@@ -5,7 +5,7 @@
 	   ,"struct-name": "User"
 	}
 ,"attributes": [
-	{ "name": "oId", "type": "object-id", "tags": [ "json", "-", "bson", "_id" ], "queryable": true }
+	{ "name": "oId", "type": "object-id", "tags": [ "json", "_id", "bson", "_id" ], "queryable": true }
    ,{ "name": "nickname"               , "type": "string", "queryable": true }
    ,{ "name": "objType"                , "type": "string", "queryable": true }
    ,{ "name": "firstname"              , "type": "string"  }

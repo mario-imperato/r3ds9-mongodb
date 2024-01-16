@@ -28,6 +28,7 @@ type UnsetOption func(uopt *UnsetOptions)
 type UnsetOptions struct {
 	DefaultMode UnsetMode
 	OId         UnsetMode
+	Userid      UnsetMode
 	Nickname    UnsetMode
 	Remoteaddr  UnsetMode
 	Flags       UnsetMode
@@ -50,6 +51,11 @@ func WithDefaultUnsetMode(m UnsetMode) UnsetOption {
 func WithOIdUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
 		uopt.OId = m
+	}
+}
+func WithUseridUnsetMode(m UnsetMode) UnsetOption {
+	return func(uopt *UnsetOptions) {
+		uopt.Userid = m
 	}
 }
 func WithNicknameUnsetMode(m UnsetMode) UnsetOption {
@@ -98,6 +104,7 @@ func GetUpdateDocument(obj *Session, opts ...UnsetOption) UpdateDocument {
 	}
 
 	ud := UpdateDocument{}
+	ud.setOrUnsetUserid(obj.Userid, uo.ResolveUnsetMode(uo.Userid))
 	ud.setOrUnsetNickname(obj.Nickname, uo.ResolveUnsetMode(uo.Nickname))
 	ud.setOrUnsetRemoteaddr(obj.Remoteaddr, uo.ResolveUnsetMode(uo.Remoteaddr))
 	ud.setOrUnsetFlags(obj.Flags, uo.ResolveUnsetMode(uo.Flags))
@@ -141,6 +148,51 @@ func (ud *UpdateDocument) setOrUnsetOId(p primitive.ObjectID, um UnsetMode) {
 			ud.UnsetOId()
 		case SetData2Default:
 			ud.UnsetOId()
+		}
+	}
+}
+
+//----- userid - string -  [userid]
+
+// SetUserid No Remarks
+func (ud *UpdateDocument) SetUserid(p string) *UpdateDocument {
+	mName := fmt.Sprintf(USERID)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetUserid No Remarks
+func (ud *UpdateDocument) UnsetUserid() *UpdateDocument {
+	mName := fmt.Sprintf(USERID)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetUserid No Remarks
+func (ud *UpdateDocument) setOrUnsetUserid(p string, um UnsetMode) {
+	if p != "" {
+		ud.SetUserid(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetUserid()
+		case SetData2Default:
+			ud.UnsetUserid()
+		}
+	}
+}
+
+func UpdateWithUserid(p string) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p != "" {
+			ud.SetUserid(p)
+		} else {
+			ud.UnsetUserid()
 		}
 	}
 }

@@ -41,6 +41,43 @@ func (ca *Criteria) AndOIdIn(p []primitive.ObjectID) *Criteria {
 	return ca
 }
 
+//----- userid of type string
+//----- userid - string -  [userid]
+
+// AndUseridEqTo No Remarks
+func (ca *Criteria) AndUseridEqTo(p string) *Criteria {
+
+	if p == "" {
+		return ca
+	}
+
+	mName := fmt.Sprintf(USERID)
+	c := func() bson.E { return bson.E{Key: mName, Value: p} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+// AndUseridIsNullOrUnset No Remarks
+func (ca *Criteria) AndUseridIsNullOrUnset() *Criteria {
+
+	mName := fmt.Sprintf(USERID)
+	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
+	*ca = append(*ca, c)
+	return ca
+}
+
+func (ca *Criteria) AndUseridIn(p []string) *Criteria {
+
+	if len(p) == 0 {
+		return ca
+	}
+
+	mName := fmt.Sprintf(USERID)
+	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
+	*ca = append(*ca, c)
+	return ca
+}
+
 //----- nickname of type string
 //----- nickname - string -  [nickname]
 

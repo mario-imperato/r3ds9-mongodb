@@ -14,7 +14,7 @@
 	      "type": "object-id",
 	      "tags": [
 	        "json",
-	        "-",
+	        "_id",
 	        "bson",
 	        "_id"
 	      ],
@@ -25,25 +25,7 @@
 	      }
 	    },
 	    {
-	      "name": "fileName",
-	      "type": "string",
-	      "queryable": true,
-	      "struct-ref": {
-	        "Package": "",
-	        "Item": null
-	      }
-	    },
-	    {
-	      "name": "container",
-	      "type": "string",
-	      "queryable": true,
-	      "struct-ref": {
-	        "Package": "",
-	        "Item": null
-	      }
-	    },
-	    {
-	      "name": "url",
+	      "name": "fn",
 	      "type": "string",
 	      "struct-ref": {
 	        "Package": "",
@@ -51,25 +33,59 @@
 	      }
 	    },
 	    {
-	      "name": "contentType",
+	      "name": "descr",
 	      "type": "string",
-	      "queryable": true,
 	      "struct-ref": {
 	        "Package": "",
 	        "Item": null
 	      }
 	    },
 	    {
-	      "name": "width",
-	      "type": "int",
+	      "name": "role",
+	      "type": "string",
 	      "struct-ref": {
 	        "Package": "",
 	        "Item": null
 	      }
 	    },
 	    {
-	      "name": "height",
-	      "type": "int",
+	      "name": "entRef",
+	      "struct-name": "EntRefStruct",
+	      "type": "struct",
+	      "attributes": [
+	        {
+	          "name": "dom",
+	          "type": "string",
+	          "struct-ref": {
+	            "Package": "",
+	            "Item": null
+	          }
+	        },
+	        {
+	          "name": "ns",
+	          "type": "string",
+	          "struct-ref": {
+	            "Package": "",
+	            "Item": null
+	          }
+	        },
+	        {
+	          "name": "entType",
+	          "type": "string",
+	          "struct-ref": {
+	            "Package": "",
+	            "Item": null
+	          }
+	        },
+	        {
+	          "name": "entId",
+	          "type": "string",
+	          "struct-ref": {
+	            "Package": "",
+	            "Item": null
+	          }
+	        }
+	      ],
 	      "struct-ref": {
 	        "Package": "",
 	        "Item": null
@@ -77,10 +93,87 @@
 	    },
 	    {
 	      "name": "metadata",
-	      "type": "map",
+	      "type": "document",
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
+	      "name": "vrnts",
+	      "type": "array",
 	      "item": {
-	        "name": "%s",
-	        "type": "string",
+	        "name": "[]",
+	        "struct-name": "Variant",
+	        "type": "struct",
+	        "attributes": [
+	          {
+	            "name": "ct",
+	            "type": "string",
+	            "queryable": true,
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "wd",
+	            "type": "int",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "ht",
+	            "type": "int",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "lks",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "bln",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "cnt",
+	            "type": "string",
+	            "queryable": true,
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "url",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "role",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          }
+	        ],
 	        "struct-ref": {
 	          "Package": "",
 	          "Item": null

@@ -14,10 +14,19 @@
 	      "type": "object-id",
 	      "tags": [
 	        "json",
-	        "-",
+	        "_id",
 	        "bson",
 	        "_id"
 	      ],
+	      "queryable": true,
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
+	      "name": "userid",
+	      "type": "string",
 	      "queryable": true,
 	      "struct-ref": {
 	        "Package": "",
@@ -56,7 +65,7 @@
 	      "struct-ref": {
 	        "struct-name": "SysInfo",
 	        "is-external": true,
-	        "Package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-core/commons",
+	        "Package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons",
 	        "Item": null
 	      }
 	    }

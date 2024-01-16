@@ -41,112 +41,75 @@ func (ca *Criteria) AndOIdIn(p []primitive.ObjectID) *Criteria {
 	return ca
 }
 
-//----- fileName of type string
-//----- fileName - string -  [fileName]
+//----- ct of type string
+//----- ct - string -  [vrnts.[].ct vrnts.ct]
 
-// AndFileNameEqTo No Remarks
-func (ca *Criteria) AndFileNameEqTo(p string) *Criteria {
+// AndVrntsCtEqTo No Remarks
+func (ca *Criteria) AndVrntsCtEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(FILENAME)
+	mName := fmt.Sprintf(VRNTS_CT)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-// AndFileNameIsNullOrUnset No Remarks
-func (ca *Criteria) AndFileNameIsNullOrUnset() *Criteria {
+// AndVrntsCtIsNullOrUnset No Remarks
+func (ca *Criteria) AndVrntsCtIsNullOrUnset() *Criteria {
 
-	mName := fmt.Sprintf(FILENAME)
+	mName := fmt.Sprintf(VRNTS_CT)
 	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndFileNameIn(p []string) *Criteria {
+func (ca *Criteria) AndVrntsCtIn(p []string) *Criteria {
 
 	if len(p) == 0 {
 		return ca
 	}
 
-	mName := fmt.Sprintf(FILENAME)
+	mName := fmt.Sprintf(VRNTS_CT)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-//----- container of type string
-//----- container - string -  [container]
+//----- cnt of type string
+//----- cnt - string -  [vrnts.[].cnt vrnts.cnt]
 
-// AndContainerEqTo No Remarks
-func (ca *Criteria) AndContainerEqTo(p string) *Criteria {
-
-	if p == "" {
-		return ca
-	}
-
-	mName := fmt.Sprintf(CONTAINER)
-	c := func() bson.E { return bson.E{Key: mName, Value: p} }
-	*ca = append(*ca, c)
-	return ca
-}
-
-// AndContainerIsNullOrUnset No Remarks
-func (ca *Criteria) AndContainerIsNullOrUnset() *Criteria {
-
-	mName := fmt.Sprintf(CONTAINER)
-	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
-	*ca = append(*ca, c)
-	return ca
-}
-
-func (ca *Criteria) AndContainerIn(p []string) *Criteria {
-
-	if len(p) == 0 {
-		return ca
-	}
-
-	mName := fmt.Sprintf(CONTAINER)
-	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
-	*ca = append(*ca, c)
-	return ca
-}
-
-//----- contentType of type string
-//----- contentType - string -  [contentType]
-
-// AndContentTypeEqTo No Remarks
-func (ca *Criteria) AndContentTypeEqTo(p string) *Criteria {
+// AndVrntsCntEqTo No Remarks
+func (ca *Criteria) AndVrntsCntEqTo(p string) *Criteria {
 
 	if p == "" {
 		return ca
 	}
 
-	mName := fmt.Sprintf(CONTENTTYPE)
+	mName := fmt.Sprintf(VRNTS_CNT)
 	c := func() bson.E { return bson.E{Key: mName, Value: p} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-// AndContentTypeIsNullOrUnset No Remarks
-func (ca *Criteria) AndContentTypeIsNullOrUnset() *Criteria {
+// AndVrntsCntIsNullOrUnset No Remarks
+func (ca *Criteria) AndVrntsCntIsNullOrUnset() *Criteria {
 
-	mName := fmt.Sprintf(CONTENTTYPE)
+	mName := fmt.Sprintf(VRNTS_CNT)
 	c := func() bson.E { return bson.E{Key: mName, Value: nil} }
 	*ca = append(*ca, c)
 	return ca
 }
 
-func (ca *Criteria) AndContentTypeIn(p []string) *Criteria {
+func (ca *Criteria) AndVrntsCntIn(p []string) *Criteria {
 
 	if len(p) == 0 {
 		return ca
 	}
 
-	mName := fmt.Sprintf(CONTENTTYPE)
+	mName := fmt.Sprintf(VRNTS_CNT)
 	c := func() bson.E { return bson.E{Key: mName, Value: bson.D{{"$in", p}}} }
 	*ca = append(*ca, c)
 	return ca

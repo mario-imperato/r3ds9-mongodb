@@ -8,41 +8,94 @@
     {
       "name": "oId",
       "type": "object-id",
-      "tags": [ "json", "-", "bson", "_id" ],
+      "tags": [
+        "json",
+        "_id",
+        "bson",
+        "_id"
+      ],
       "queryable": true
     },
     {
-      "name": "fileName",
-      "type": "string",
-      "queryable": true
-    },
-    {
-      "name": "container",
-      "type": "string",
-      "queryable": true
-    },
-    {
-      "name": "url",
+      "name": "fn",
       "type": "string"
     },
     {
-      "name": "contentType",
-      "type": "string",
-      "queryable": true
+      "name": "descr",
+      "type": "string"
     },
     {
-      "name": "width",
-      "type": "int"
+      "name": "role",
+      "type": "string"
     },
     {
-      "name": "height",
-      "type": "int"
+      "name": "entRef",
+      "type": "struct",
+      "attributes": [
+        {
+          "name": "dom",
+          "type": "string"
+        },
+        {
+          "name": "ns",
+          "type": "string"
+        },
+        {
+          "name": "entType",
+          "type": "string"
+        },
+        {
+          "name": "entId",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "metadata",
-      "type": "map",
+      "type": "document"
+    },
+    {
+      "name": "vrnts",
+      "type": "array",
       "item": {
-        "type": "interface{}"
+        "type": "struct",
+        "struct-name": "Variant",
+        "attributes": [
+        {
+          "name": "ct",
+          "type": "string",
+          "queryable": true
+        },
+        {
+          "name": "wd",
+          "type": "int"
+        },
+        {
+          "name": "ht",
+          "type": "int"
+        },
+        {
+          "name": "lks",
+          "type": "string"
+        },
+        {
+          "name": "bln",
+          "type": "string"
+        },
+        {
+          "name": "cnt",
+          "type": "string",
+          "queryable": true
+        },
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "role",
+          "type": "string"
+        }
+      ]
       }
     },
     {

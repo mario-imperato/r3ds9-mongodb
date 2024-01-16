@@ -78,18 +78,6 @@ func (ca *Criteria) AndNicknameIn(p []string) *Criteria {
 	return ca
 }
 
-func (ca *Criteria) AndEmailEqTo(p string) *Criteria {
-
-	if p == "" {
-		return ca
-	}
-
-	mName := fmt.Sprintf(EMAIL)
-	c := func() bson.E { return bson.E{Key: mName, Value: p} }
-	*ca = append(*ca, c)
-	return ca
-}
-
 //----- objType of type string
 //----- objType - string -  [objType]
 

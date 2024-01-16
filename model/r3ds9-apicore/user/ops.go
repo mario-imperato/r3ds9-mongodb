@@ -36,6 +36,34 @@ func FindByNickname(collection *mongo.Collection, nickname string, mustFind bool
 	return &ent, nil
 }
 
+func FindByHexOid(collection *mongo.Collection, userId string, mustFind bool, findOptions *options.FindOneOptions) (*User, error) {
+
+	const SemLogContext = "r3ds9-core/user/find-by-nickname"
+	log.Trace().Str("userId", userId).Msg(SemLogContext)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	ent := User{}
+
+	f := Filter{}
+	f.Or().AndHexOIdEqTo(userId)
+	err := collection.FindOne(ctx, f.Build(), findOptions).Decode(&ent)
+	if err != nil && (err != mongo.ErrNoDocuments || (err == mongo.ErrNoDocuments && mustFind)) {
+		log.Error().Err(err).Msg(SemLogContext)
+		return nil, err
+	} else {
+		if err != nil {
+			log.Trace().Str("userId", userId).Msgf("%s - document not found", SemLogContext)
+			return nil, err
+		} else {
+			log.Trace().Str("userId", userId).Msgf("%s - document found", SemLogContext)
+		}
+	}
+
+	return &ent, nil
+}
+
 /*
 func Insert(ctx context.Context, aCollection *mongo.Collection, s *Session) (string, error) {
 

@@ -14,7 +14,7 @@
 	      "type": "object-id",
 	      "tags": [
 	        "json",
-	        "-",
+	        "_id",
 	        "bson",
 	        "_id"
 	      ],
