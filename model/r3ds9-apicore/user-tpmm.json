@@ -12,8 +12,9 @@
    ,{ "name": "lastname"               , "type": "string"  }
    ,{ "name": "email"                  , "type": "string"  }
    ,{ "name": "password"               , "type": "string"  }
-   ,{ "name": "roles", "type": "array" , "item": { "type": "ref-struct", "struct-ref" : { "struct-name": "UserRole", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons" }}}
-   ,{ "name": "sysinfo", "type": "ref-struct", "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons" }}
+   ,{ "name": "roles", "type": "array" , "item": { "type": "ref-struct", "struct-ref" : { "struct-name": "UserRole", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/commons" }}}
+   ,{ "name": "sysinfo", "type": "ref-struct", "struct-ref" : { "struct-name": "SysInfo", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/commons" }}
+   ,{ "name": "profilePicture", "type": "ref-struct", "struct-ref" : { "struct-name": "FileReference", "is-external": true, "package": "github.com/mario-imperato/r3ds9-mongodb/model/commons" }}
 ]
 }
 

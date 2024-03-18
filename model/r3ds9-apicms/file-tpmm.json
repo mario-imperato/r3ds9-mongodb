@@ -29,26 +29,29 @@
       "type": "string"
     },
     {
-      "name": "entRef",
-      "type": "struct",
-      "attributes": [
-        {
-          "name": "dom",
-          "type": "string"
-        },
-        {
-          "name": "ns",
-          "type": "string"
-        },
-        {
-          "name": "entType",
-          "type": "string"
-        },
-        {
-          "name": "entId",
-          "type": "string"
-        }
-      ]
+      "name": "entRefs",
+      "type": "array",
+      "item": {
+        "type": "struct",
+        "attributes": [
+          {
+            "name": "dom",
+            "type": "string"
+          },
+          {
+            "name": "ns",
+            "type": "string"
+          },
+          {
+            "name": "entType",
+            "type": "string"
+          },
+          {
+            "name": "entId",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "metadata",

@@ -1,6 +1,9 @@
-package commons
+package file
 
 import "go.mongodb.org/mongo-driver/bson"
+
+// @tpm-schematics:start-region("top-file-section")
+// @tpm-schematics:end-region("top-file-section")
 
 var emptyUpdate = bson.D{}
 
@@ -85,3 +88,6 @@ func (ui *Updates) Add(fu Update) {
 func (ud *UpdateDocument) Add(op UpdateOperator, fu Update) {
 	ud.op(op).Add(fu)
 }
+
+// @tpm-schematics:start-region("bottom-file-section")
+// @tpm-schematics:end-region("bottom-file-section")

@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
+import "github.com/mario-imperato/r3ds9-mongodb/model/commons"
 
 // GetAppByObjTypeAndId search for a match of App.Id and App.ObjType. If not found it returns an empty App
 // or the last configured App with same Id (and different objType). It works in the assumption to redirect to

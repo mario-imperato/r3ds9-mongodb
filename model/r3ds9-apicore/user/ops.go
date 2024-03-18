@@ -38,7 +38,7 @@ func FindByNickname(collection *mongo.Collection, nickname string, mustFind bool
 
 func FindByHexOid(collection *mongo.Collection, userId string, mustFind bool, findOptions *options.FindOneOptions) (*User, error) {
 
-	const SemLogContext = "r3ds9-core/user/find-by-nickname"
+	const SemLogContext = "r3ds9-core/user/find-by-object-id"
 	log.Trace().Str("userId", userId).Msg(SemLogContext)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

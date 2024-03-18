@@ -1,0 +1,20 @@
+--- a/../../model/commons/fileReference.go
++++ b/../../model/commons/fileReference.go
+@@ -6,7 +6,7 @@
+ // @tpm-schematics:end-region("top-file-section")
+ 
+ type FileReference struct {
+-	Id     primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty" yaml:"_id,omitempty"`
++	OId    primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty" yaml:"_id,omitempty"`
+ 	SrcSet []FileVariant      `json:"srcSet,omitempty" bson:"srcSet,omitempty" yaml:"srcSet,omitempty"`
+ 
+ 	// @tpm-schematics:start-region("struct-section")
+@@ -14,7 +14,7 @@
+ }
+ 
+ func (s FileReference) IsZero() bool {
+-	return s.Id == primitive.NilObjectID && len(s.SrcSet) == 0
++	return s.OId == primitive.NilObjectID && len(s.SrcSet) == 0
+ }
+ 
+ // @tpm-schematics:start-region("bottom-file-section")

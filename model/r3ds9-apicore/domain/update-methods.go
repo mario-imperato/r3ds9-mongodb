@@ -5,7 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/commons"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

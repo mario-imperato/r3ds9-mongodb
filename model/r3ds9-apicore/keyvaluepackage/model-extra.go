@@ -2,7 +2,7 @@ package keyvaluepackage
 
 import (
 	"fmt"
-	"github.com/mario-imperato/r3ds9-apicommon/definitions"
+	"github.com/mario-imperato/r3ds9-mongodb/model"
 	"strings"
 )
 
@@ -19,7 +19,7 @@ func ScopeTypeFrom(scope string) (string, error) {
 		return "unknown-scope", fmt.Errorf("scope cannot be resolved since is missing")
 	}
 
-	if scope == definitions.RootDomain {
+	if scope == model.RootDomain {
 		return "root-scope", nil
 	}
 
@@ -38,15 +38,15 @@ func ScopeTypeFrom(scope string) (string, error) {
 }
 
 func ScopeTypeAndPathFromDomainSite(domain, site string) (string, string) {
-	if domain == definitions.RootDomain {
-		return "root-scope", definitions.RootDomain
+	if domain == model.RootDomain {
+		return "root-scope", model.RootDomain
 	}
 
-	if site == definitions.SiteWildCard {
-		return "domain-scope", strings.Join([]string{definitions.RootDomain, domain}, "/")
+	if site == model.SiteWildCard {
+		return "domain-scope", strings.Join([]string{model.RootDomain, domain}, "/")
 	}
 
-	return "site-scope", strings.Join([]string{definitions.RootDomain, domain, site}, "/")
+	return "site-scope", strings.Join([]string{model.RootDomain, domain, site}, "/")
 }
 
 func ScopeIsMoreSpecificThan(scope string, another string) (bool, error) {

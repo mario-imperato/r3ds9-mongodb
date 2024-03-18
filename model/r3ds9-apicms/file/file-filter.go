@@ -1,10 +1,13 @@
-package commons
+package file
 
 import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 )
+
+// @tpm-schematics:start-region("top-file-section")
+// @tpm-schematics:end-region("top-file-section")
 
 func CriteriaGoInfo() string {
 	i := fmt.Sprintf("tpm_morphia query filter support generated for %s package on %s", "author", time.Now().String())
@@ -66,3 +69,6 @@ func (f *Filter) Build() bson.D {
 
 	return bson.D{{"$or", docA}}
 }
+
+// @tpm-schematics:start-region("bottom-file-section")
+// @tpm-schematics:end-region("bottom-file-section")

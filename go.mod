@@ -5,7 +5,6 @@ go 1.21
 toolchain go1.21.5
 
 require (
-	github.com/mario-imperato/r3ds9-apicommon v0.0.4
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/rs/zerolog v1.31.0
 	go.mongodb.org/mongo-driver v1.13.1

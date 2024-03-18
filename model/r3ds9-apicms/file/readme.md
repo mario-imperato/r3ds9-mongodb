@@ -49,43 +49,51 @@
 	      }
 	    },
 	    {
-	      "name": "entRef",
-	      "struct-name": "EntRefStruct",
-	      "type": "struct",
-	      "attributes": [
-	        {
-	          "name": "dom",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
+	      "name": "entRefs",
+	      "type": "array",
+	      "item": {
+	        "name": "[]",
+	        "struct-name": "EntRefsStruct",
+	        "type": "struct",
+	        "attributes": [
+	          {
+	            "name": "dom",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "ns",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "entType",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
+	          },
+	          {
+	            "name": "entId",
+	            "type": "string",
+	            "struct-ref": {
+	              "Package": "",
+	              "Item": null
+	            }
 	          }
-	        },
-	        {
-	          "name": "ns",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
-	        },
-	        {
-	          "name": "entType",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
-	        },
-	        {
-	          "name": "entId",
-	          "type": "string",
-	          "struct-ref": {
-	            "Package": "",
-	            "Item": null
-	          }
+	        ],
+	        "struct-ref": {
+	          "Package": "",
+	          "Item": null
 	        }
-	      ],
+	      },
 	      "struct-ref": {
 	        "Package": "",
 	        "Item": null

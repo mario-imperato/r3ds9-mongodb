@@ -41,10 +41,10 @@ c.insertOne(
         "description": "Apps disponibili",
         "inherit": false
         ,"properties": [
-            { "key": "app-home",    "value": "home,/ui-console/{0}/{1}/{2}/app-home,Home", "order": 0, "kind": "record:icon,url,hint" },
-            { "key": "app-people-admin",  "value": "people,/ui-console/{0}/{1}/{2}/app-people-admin,Contatti", "order": 0, "kind": "record:icon,url,hint" },
-            { "key": "app-sys-admin",  "value": "computer,/ui-console/{0}/{1}/{2}/app-sys-admin,Sys Admin", "order": 0, "kind": "record:icon,url,hint" },
-            { "key": "app-cms-admin",  "value": "photo_library,/ui-console/{0}/{1}/{2}/app-cms-admin,CMS", "order": 0, "kind": "record:icon,url,hint" }
+            { "key": "app-home",    "value": "home,/ui-admin/{0}/{1}/{2}/app-home,Home",         "order": 0, "kind": "record:icon,url,hint" },
+            { "key": "app-people",  "value": "people,/ui-admin/{0}/{1}/{2}/app-people,Contatti", "order": 0, "kind": "record:icon,url,hint" },
+            { "key": "app-sys",     "value": "computer,/ui-admin/{0}/{1}/{2}/app-sys,Sys Admin", "order": 0, "kind": "record:icon,url,hint" },
+            { "key": "app-cms",     "value": "photo_library,/ui-admin/{0}/{1}/{2}/app-cms,CMS",  "order": 0, "kind": "record:icon,url,hint" }
         ]
         ,"sysinfo": {
             "createdat": new Date(),

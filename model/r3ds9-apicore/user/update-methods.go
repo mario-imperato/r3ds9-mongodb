@@ -5,7 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/commons"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -26,16 +26,17 @@ const (
 type UnsetOption func(uopt *UnsetOptions)
 
 type UnsetOptions struct {
-	DefaultMode UnsetMode
-	OId         UnsetMode
-	Nickname    UnsetMode
-	ObjType     UnsetMode
-	Firstname   UnsetMode
-	Lastname    UnsetMode
-	Email       UnsetMode
-	Password    UnsetMode
-	Roles       UnsetMode
-	Sysinfo     UnsetMode
+	DefaultMode    UnsetMode
+	OId            UnsetMode
+	Nickname       UnsetMode
+	ObjType        UnsetMode
+	Firstname      UnsetMode
+	Lastname       UnsetMode
+	Email          UnsetMode
+	Password       UnsetMode
+	Roles          UnsetMode
+	Sysinfo        UnsetMode
+	ProfilePicture UnsetMode
 }
 
 func (uo *UnsetOptions) ResolveUnsetMode(um UnsetMode) UnsetMode {
@@ -96,6 +97,11 @@ func WithSysinfoUnsetMode(m UnsetMode) UnsetOption {
 		uopt.Sysinfo = m
 	}
 }
+func WithProfilePictureUnsetMode(m UnsetMode) UnsetOption {
+	return func(uopt *UnsetOptions) {
+		uopt.ProfilePicture = m
+	}
+}
 
 type UpdateOption func(ud *UpdateDocument)
 type UpdateOptions []UpdateOption
@@ -137,6 +143,11 @@ func GetUpdateDocument(obj *User, opts ...UnsetOption) UpdateDocument {
 	//   ud.SetSysinfo ( obj.Sysinfo)
 	// } else {
 	ud.setOrUnsetSysinfo(obj.Sysinfo, uo.ResolveUnsetMode(uo.Sysinfo))
+	// }
+	// if !obj.ProfilePicture.IsZero() {
+	//   ud.SetProfilePicture ( obj.ProfilePicture)
+	// } else {
+	ud.setOrUnsetProfilePicture(obj.ProfilePicture, uo.ResolveUnsetMode(uo.ProfilePicture))
 	// }
 
 	return ud
@@ -572,6 +583,54 @@ func UpdateWithSysinfo(p commons.SysInfo) UpdateOption {
 			ud.SetSysinfo(p)
 		} else {
 			ud.UnsetSysinfo()
+		}
+	}
+}
+
+// ----- profilePicture - ref-struct -  [profilePicture]
+// SetProfilePicture No Remarks
+func (ud *UpdateDocument) SetProfilePicture(p commons.FileReference) *UpdateDocument {
+	mName := fmt.Sprintf(PROFILEPICTURE)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetProfilePicture No Remarks
+func (ud *UpdateDocument) UnsetProfilePicture() *UpdateDocument {
+	mName := fmt.Sprintf(PROFILEPICTURE)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetProfilePicture No Remarks - here2
+func (ud *UpdateDocument) setOrUnsetProfilePicture(p commons.FileReference, um UnsetMode) {
+
+	//----- ref-struct\n
+
+	if !p.IsZero() {
+		ud.SetProfilePicture(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetProfilePicture()
+		case SetData2Default:
+			ud.UnsetProfilePicture()
+		}
+	}
+}
+
+func UpdateWithProfilePicture(p commons.FileReference) UpdateOption {
+	return func(ud *UpdateDocument) {
+
+		if !p.IsZero() {
+			ud.SetProfilePicture(p)
+		} else {
+			ud.UnsetProfilePicture()
 		}
 	}
 }

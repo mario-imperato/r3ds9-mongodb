@@ -26,7 +26,14 @@ db[r3ds9CollectionName].insertOne(
                 ,"objType": "app-admin"
                 ,"name": "Applicazione Home"
                 ,"description": "Applicazione Home"
-                ,"path": "r3ds9-app-home-console/index.tmpl"
+                ,"path": "r3ds9-admin-app-home/index.tmpl"
+            },
+            {
+                "id": "app-sys-admin"
+                ,"objType": "app-admin"
+                ,"name": "Applicazione Sys Admin"
+                ,"description": "Applicazione  Sys Admin"
+                ,"path": "r3ds9-app-sys-admin/index.tmpl"
             }
         ],
         "members": [
@@ -54,7 +61,7 @@ db[r3ds9CollectionName].insertOne(
                 ,"objType": "app-admin"
                 ,"name": "Applicazione Home"
                 ,"description": "Applicazione Home"
-                ,"path": "r3ds9-app-home-console/index.tmpl"
+                ,"path": "r3ds9-admin-app-home/index.tmpl"
             }
         ],
         "members": [

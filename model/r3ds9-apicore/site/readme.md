@@ -68,6 +68,14 @@
 	      }
 	    },
 	    {
+	      "name": "bookmark",
+	      "type": "bool",
+	      "struct-ref": {
+	        "Package": "",
+	        "Item": null
+	      }
+	    },
+	    {
 	      "name": "langs",
 	      "type": "string",
 	      "struct-ref": {
@@ -84,7 +92,7 @@
 	        "struct-ref": {
 	          "struct-name": "App",
 	          "is-external": true,
-	          "Package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons",
+	          "Package": "github.com/mario-imperato/r3ds9-mongodb/model/commons",
 	          "Item": null
 	        }
 	      },
@@ -99,7 +107,7 @@
 	      "struct-ref": {
 	        "struct-name": "SysInfo",
 	        "is-external": true,
-	        "Package": "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons",
+	        "Package": "github.com/mario-imperato/r3ds9-mongodb/model/commons",
 	        "Item": null
 	      }
 	    }

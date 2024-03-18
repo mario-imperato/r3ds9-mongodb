@@ -26,7 +26,45 @@ db[r3ds9CollectionName].insertOne(
                 ,"objType": "app-admin"
                 ,"name": "Applicazione Home"
                 ,"description": "Applicazione Home"
-                ,"path": "r3ds9-app-home-console/index.tmpl"
+                ,"path": "r3ds9-admin-app-home/index.tmpl"
+            },
+            {
+                "id": "app-sys"
+                ,"objType": "app-admin"
+                ,"name": "Applicazione Sys Admin"
+                ,"description": "Applicazione  Sys Admin"
+                ,"path": "r3ds9-admin-app-sys/index.tmpl"
+            }
+        ]
+        ,"sysinfo": {
+            "createdat": new Date(),
+            "status": "active",
+            "modifiedat": new Date()
+        }
+    })
+
+db[r3ds9CollectionName].insertOne(
+    {
+        "code" : "champ43",
+        "domain": "cvf",
+        "objType": "site",
+        "name" : "CVF Campionato 43",
+        "description" : "Il campionato piu' affollato d'Italia",
+        "langs": "it",
+        "apps": [
+            {
+                "id": "app-home"
+                ,"objType": "app-admin"
+                ,"name": "Applicazione Home"
+                ,"description": "Applicazione Home"
+                ,"path": "r3ds9-admin-app-home/index.tmpl"
+            },
+            {
+                "id": "app-sys"
+                ,"objType": "app-admin"
+                ,"name": "Applicazione Sys Admin"
+                ,"description": "Applicazione  Sys Admin"
+                ,"path": "r3ds9-admin-app-sys/index.tmpl"
             }
         ]
         ,"sysinfo": {

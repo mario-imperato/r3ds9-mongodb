@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/commons"
 	"strings"
 )
 

@@ -1,7 +1,7 @@
 package keyvaluepackage
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
-import "github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
+import "github.com/mario-imperato/r3ds9-mongodb/model/commons"
 
 const (
 	OID                = "_id"

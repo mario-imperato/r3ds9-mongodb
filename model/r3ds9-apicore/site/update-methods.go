@@ -5,7 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
 
-	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/commons"
+	"github.com/mario-imperato/r3ds9-mongodb/model/commons"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -33,6 +33,7 @@ type UnsetOptions struct {
 	ObjType     UnsetMode
 	Name        UnsetMode
 	Description UnsetMode
+	Bookmark    UnsetMode
 	Langs       UnsetMode
 	Apps        UnsetMode
 	Sysinfo     UnsetMode
@@ -81,6 +82,11 @@ func WithDescriptionUnsetMode(m UnsetMode) UnsetOption {
 		uopt.Description = m
 	}
 }
+func WithBookmarkUnsetMode(m UnsetMode) UnsetOption {
+	return func(uopt *UnsetOptions) {
+		uopt.Bookmark = m
+	}
+}
 func WithLangsUnsetMode(m UnsetMode) UnsetOption {
 	return func(uopt *UnsetOptions) {
 		uopt.Langs = m
@@ -127,6 +133,7 @@ func GetUpdateDocument(obj *Site, opts ...UnsetOption) UpdateDocument {
 	ud.setOrUnsetObjType(obj.ObjType, uo.ResolveUnsetMode(uo.ObjType))
 	ud.setOrUnsetName(obj.Name, uo.ResolveUnsetMode(uo.Name))
 	ud.setOrUnsetDescription(obj.Description, uo.ResolveUnsetMode(uo.Description))
+	ud.setOrUnsetBookmark(obj.Bookmark, uo.ResolveUnsetMode(uo.Bookmark))
 	ud.setOrUnsetLangs(obj.Langs, uo.ResolveUnsetMode(uo.Langs))
 	// if len(obj.Apps) > 0 {
 	//   ud.SetApps ( obj.Apps)
@@ -398,6 +405,51 @@ func UpdateWithDescription(p string) UpdateOption {
 			ud.SetDescription(p)
 		} else {
 			ud.UnsetDescription()
+		}
+	}
+}
+
+//----- bookmark - bool -  [bookmark]
+
+// SetBookmark No Remarks
+func (ud *UpdateDocument) SetBookmark(p bool) *UpdateDocument {
+	mName := fmt.Sprintf(BOOKMARK)
+	ud.Set().Add(func() bson.E {
+		return bson.E{Key: mName, Value: p}
+	})
+	return ud
+}
+
+// UnsetBookmark
+func (ud *UpdateDocument) UnsetBookmark() *UpdateDocument {
+	mName := fmt.Sprintf(BOOKMARK)
+	ud.Unset().Add(func() bson.E {
+		return bson.E{Key: mName, Value: ""}
+	})
+	return ud
+}
+
+// setOrUnsetBookmark No Remarks
+func (ud *UpdateDocument) setOrUnsetBookmark(p bool, um UnsetMode) {
+	if p {
+		ud.SetBookmark(p)
+	} else {
+		switch um {
+		case KeepCurrent:
+		case UnsetData:
+			ud.UnsetBookmark()
+		case SetData2Default:
+			ud.UnsetBookmark()
+		}
+	}
+}
+
+func UpdateWithBookmark(p bool) UpdateOption {
+	return func(ud *UpdateDocument) {
+		if p {
+			ud.SetBookmark(p)
+		} else {
+			ud.UnsetBookmark()
 		}
 	}
 }

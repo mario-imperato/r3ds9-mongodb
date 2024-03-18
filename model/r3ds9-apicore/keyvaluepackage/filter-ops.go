@@ -3,7 +3,8 @@ package keyvaluepackage
 import (
 	"context"
 	"fmt"
-	"github.com/mario-imperato/r3ds9-apicommon/definitions"
+	"github.com/mario-imperato/r3ds9-mongodb/model"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -55,18 +56,18 @@ func filterByDomainSiteNameCategories(domain, site, pkgName string, categories [
 	f := Filter{}
 	criteria := f.Or().AndNameEqTo(pkgName).AndCategoryIn(categories)
 
-	if domain == definitions.RootDomain {
-		criteria.AndScopeEqTo(definitions.RootDomain)
+	if domain == model.RootDomain {
+		criteria.AndScopeEqTo(model.RootDomain)
 	} else {
-		if site == definitions.SiteWildCard {
+		if site == model.SiteWildCard {
 			criteria.AndScopeIn([]string{
-				definitions.RootDomain,
-				fmt.Sprintf("%s/%s", definitions.RootDomain, domain)})
+				model.RootDomain,
+				fmt.Sprintf("%s/%s", model.RootDomain, domain)})
 		} else {
 			criteria.AndScopeIn([]string{
-				definitions.RootDomain,
-				fmt.Sprintf("%s/%s", definitions.RootDomain, domain),
-				fmt.Sprintf("%s/%s/%s", definitions.RootDomain, domain, site),
+				model.RootDomain,
+				fmt.Sprintf("%s/%s", model.RootDomain, domain),
+				fmt.Sprintf("%s/%s/%s", model.RootDomain, domain, site),
 			})
 		}
 	}

@@ -2,7 +2,8 @@ package keyvaluepackage_test
 
 import (
 	"fmt"
-	"github.com/mario-imperato/r3ds9-apicommon/definitions"
+
+	"github.com/mario-imperato/r3ds9-mongodb/model"
 	"github.com/mario-imperato/r3ds9-mongodb/model/r3ds9-apicore/keyvaluepackage"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -24,10 +25,10 @@ type InputWantedDomainSite struct {
 func TestScope(t *testing.T) {
 
 	scopeCases := []InputWanted{
-		{scope: definitions.RootDomain, another: definitions.RootDomain, result: true},
-		{scope: definitions.RootDomain, another: "cvf", result: false},
-		{scope: definitions.RootDomain, another: "cvf/mySite", result: false},
-		{scope: "cvf", another: definitions.RootDomain, result: true},
+		{scope: model.RootDomain, another: model.RootDomain, result: true},
+		{scope: model.RootDomain, another: "cvf", result: false},
+		{scope: model.RootDomain, another: "cvf/mySite", result: false},
+		{scope: "cvf", another: model.RootDomain, result: true},
 		{scope: "cvf", another: "cvf/mySite", result: false},
 		{scope: "cvf/mySite", another: "cvf", result: true},
 		{scope: "cvf/mySite", another: "cvf/yourSite", result: false, error: true},
@@ -44,8 +45,8 @@ func TestScope(t *testing.T) {
 	}
 
 	domainSiteCases := []InputWantedDomainSite{
-		{domain: definitions.RootDomain, site: definitions.SiteWildCard, scope: definitions.RootDomain},
-		{domain: "cvf", site: definitions.SiteWildCard, scope: "root/cvf"},
+		{domain: model.RootDomain, site: model.SiteWildCard, scope: model.RootDomain},
+		{domain: "cvf", site: model.SiteWildCard, scope: "root/cvf"},
 		{domain: "cvf", site: "mySite", scope: "root/cvf/mySite"},
 	}
 	for i, iw := range domainSiteCases {
