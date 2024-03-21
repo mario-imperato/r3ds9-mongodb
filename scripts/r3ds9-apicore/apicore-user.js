@@ -27,7 +27,7 @@ c.insertOne(
                 ,"apps" : "*"
             }
         ]
-        ,"sysinfo": {
+        ,"sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()
@@ -38,7 +38,7 @@ c.insertOne(
     {
         "nickname" : "guest",
         "objType"  : "guest-user"
-        ,"sysinfo": {
+        ,"sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()
@@ -59,7 +59,7 @@ c.insertOne(
                 ,"apps" : "app-home:admin:requested-role;app-people-admin:admin"
             }
         ]
-        ,"sysinfo": {
+        ,"sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()

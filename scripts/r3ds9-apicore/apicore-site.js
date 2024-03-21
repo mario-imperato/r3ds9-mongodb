@@ -36,7 +36,7 @@ db[r3ds9CollectionName].insertOne(
                 ,"path": "r3ds9-admin-app-sys/index.tmpl"
             }
         ]
-        ,"sysinfo": {
+        ,"sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()
@@ -67,7 +67,7 @@ db[r3ds9CollectionName].insertOne(
                 ,"path": "r3ds9-admin-app-sys/index.tmpl"
             }
         ]
-        ,"sysinfo": {
+        ,"sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()

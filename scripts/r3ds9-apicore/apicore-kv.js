@@ -25,7 +25,7 @@ c.insertOne(
         ,"properties": [
             { "key": "theme", "value": "theme-1", "order": 0, "kind": "string" },
         ]
-        ,"sysinfo": {
+        ,"sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()

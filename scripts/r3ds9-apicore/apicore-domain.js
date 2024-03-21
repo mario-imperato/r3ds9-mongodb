@@ -41,7 +41,7 @@ db[r3ds9CollectionName].insertOne(
                "code": "cvf", "objType": "domain"
             }
         ],
-        "sysinfo": {
+        "sysInfo": {
             "createdat": new Date(),
             "status": "active",
             "modifiedat": new Date()

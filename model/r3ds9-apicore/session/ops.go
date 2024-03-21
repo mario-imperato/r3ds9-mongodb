@@ -44,9 +44,9 @@ func Insert(ctx context.Context, aCollection *mongo.Collection, s *Session) (str
 	log.Trace().Str("user-id", s.Userid).Msg(SemLogContext)
 
 	now := time.Now()
-	s.Sysinfo.Status = "active"
-	s.Sysinfo.Createdat = primitive.NewDateTimeFromTime(now)
-	s.Sysinfo.Modifiedat = primitive.NewDateTimeFromTime(now)
+	s.SysInfo.Status = "active"
+	s.SysInfo.Createdat = primitive.NewDateTimeFromTime(now)
+	s.SysInfo.Modifiedat = primitive.NewDateTimeFromTime(now)
 	r, err := aCollection.InsertOne(ctx, s)
 
 	if err != nil {

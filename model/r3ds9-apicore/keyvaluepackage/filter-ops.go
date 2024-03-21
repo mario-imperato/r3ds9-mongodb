@@ -81,7 +81,7 @@ func FindByDomainSiteCategoryList(c *mongo.Collection, domain, site string, cate
 	f := filterByDomainSiteNameCategories(domain, site, "", categories)
 
 	findOptions := options.Find()
-	findOptions.SetSort(bson.D{{NAME, -1}})
+	findOptions.SetSort(bson.D{{NameFieldName, -1}})
 	crs, err := c.Find(context.TODO(), f.Build(), findOptions)
 	if err != nil {
 		if err != mongo.ErrNoDocuments {
