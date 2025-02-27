@@ -1,8 +1,6 @@
 module github.com/mario-imperato/r3ds9-mongodb
 
-go 1.21
-
-toolchain go1.21.5
+go 1.23.3
 
 require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible
